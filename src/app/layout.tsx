@@ -1,6 +1,17 @@
-import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+// Styles
 import "./globals.css";
+
+// Types
+import type { Metadata } from "next";
+
+// Fonts
+import { Inter, Poppins } from "next/font/google";
+
+// Supabase
+import { createClient } from "@/utils/supabase/server";
+import { cookies } from "next/headers";
+import { AuthProvider } from "@/context/AuthContext";
+
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,15 +32,24 @@ export const metadata: Metadata = {
   authors: [{ name: "Santino Ventrice", url: "https://santiventri.com" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = cookies();
+  const supabase = await createClient(cookieStore);
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <html lang="en">
-      <body className={`${inter.variable} font-sans`}>
-        {children}
+      <body className={`${inter.variable} font-sans` + ` ${poppins.variable} font-sans`}>
+        <AuthProvider serverUser={user}>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
