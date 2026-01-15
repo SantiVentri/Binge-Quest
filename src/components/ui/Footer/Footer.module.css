@@ -1,8 +1,45 @@
 .footer {
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--primary-color);
+  background-color: var(--foreground-color);
+  height: 340px;
   color: white;
-  padding: 14px 0;
+  overflow: hidden;
+}
+
+.footer .container {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 50px;
+  width: 100%;
+}
+
+.footer h4 {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.footer nav {
+  display: flex;
+  gap: 40px;
+}
+
+.footer nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bgTitle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  text-align: center;
+  color: #6863AB;
+  font-size: 220px;
+  font-weight: 900;
+  line-height: 45%;
+  z-index: 0;
 }

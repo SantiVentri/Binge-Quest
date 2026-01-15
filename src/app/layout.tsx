@@ -15,7 +15,7 @@ import { AuthProvider } from "@/context/AuthContext";
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "600", "700", "900"],
   variable: "--font-poppins",
   display: "swap",
 });
