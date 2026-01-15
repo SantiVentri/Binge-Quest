@@ -3,19 +3,19 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f2f5;
+    background-color: var(--background-color);
 }
 
 .container {
     display: flex;
     flex-direction: column;
-    background-color: #fff;
-    border: 3px solid #ddd;
+    background-color: var(--foreground-color);
     border-radius: 20px;
     padding: 30px;
     width: 500px;
     max-width: 90%;
     gap: 30px;
+    color: white;
 }
 
 .titles {
@@ -33,7 +33,7 @@
 .titles p {
     margin: 0;
     font-size: 16px;
-    color: #666;
+    color: #ccc;
 }
 
 .form {
@@ -49,7 +49,9 @@
 }
 
 .inputGroup input {
-    border: 1px solid #ccc;
+    border: 1px solid #4a4a4a;
+    background-color: #3b364c;
+    color: white;
     border-radius: 8px;
     padding: 10px;
     width: 100%;
@@ -70,6 +72,7 @@
     top: 50%;
     transform: translateY(-50%);
     background: none;
+    color: white;
     border: none;
     cursor: pointer;
 }
@@ -103,26 +106,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: transparent;
-    border: none;
-    outline: 3px solid black;
-    outline-offset: -3px;
+    background-color: #3b364c;
+    border: 1px solid #4a4a4a;
     border-radius: 8px;
-    color: black;
+    color: white;
     padding: 10px;
     font-size: 16px;
     cursor: pointer;
 }
 
 .buttons button[type="reset"]:hover {
-    background-color: #e2e2e2;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    gap: 5px;
 }
 
 .container a {
-    color: var(--primary-color);
+    text-decoration: 2px underline;
+    text-underline-offset: 2px;
     font-weight: 500;
 }

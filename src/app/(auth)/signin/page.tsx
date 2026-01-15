@@ -80,7 +80,7 @@ export default function SignInPage() {
               placeholder="johndoe@example.com"
               required
             />
-            <Link href="/forgot-password" style={{ marginTop: "8px" }}>
+            <Link href="/forgot-password" style={{ marginTop: "8px", }}>
               Forgot password?
             </Link>
           </div>
