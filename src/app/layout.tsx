@@ -27,8 +27,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Next.js x Supabase Template",
-  description: "Generated with Next.js",
+  title: "Binge Quest | by Santino Ventrice",
+  description: "Are you a true TV and movie expert? Play Binge Quest and challenge your memory with our trivia minigames. 🎬🍿 Start playing now!",
   authors: [{ name: "Santino Ventrice", url: "https://santiventri.com" }],
 };
 
