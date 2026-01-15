@@ -1,0 +1,35 @@
+:root {
+  --primary-color: #3454d1;
+  --primary-color-dark: #2a43a8;
+  --dark-color: #2c2c2c;
+  --light-color: #f5f5f5;
+  --font-inter: "Inter", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-inter);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-poppins);
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}

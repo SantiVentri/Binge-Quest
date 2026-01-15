@@ -1,0 +1,17 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+}
+
+.nav h1 {
+  font-size: 24px;
+  color: #333;
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}

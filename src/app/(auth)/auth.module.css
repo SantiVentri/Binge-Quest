@@ -1,0 +1,123 @@
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 3px solid #ddd;
+    border-radius: 20px;
+    padding: 30px;
+    width: 500px;
+    max-width: 90%;
+    gap: 30px;
+}
+
+.titles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.titles h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.titles p {
+    margin: 0;
+    font-size: 16px;
+    color: #666;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.inputGroup input {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+}
+
+.inputGroup input:focus {
+    outline: 2px solid var(--primary-color);
+}
+
+.passwordContainer {
+    position: relative;
+}
+
+.eyeButton {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.errorMessage {
+    color: red;
+    font-size: 14px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.buttons button[type="submit"] {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.buttons button[type="submit"]:hover {
+    background-color: var(--primary-color-dark);
+}
+
+.buttons button[type="reset"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    outline: 3px solid black;
+    outline-offset: -3px;
+    border-radius: 8px;
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.buttons button[type="reset"]:hover {
+    background-color: #e2e2e2;
+}
+
+.link {
+    text-align: center;
+}
