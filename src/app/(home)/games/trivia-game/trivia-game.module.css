@@ -44,7 +44,7 @@
     width: 100%;
     font-weight: bold;
     font-size: 18px;
-    cursor: pointer;
+    cursor: pointer ;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
@@ -55,9 +55,9 @@
 }
 
 .correct {
-    outline: 3px solid green;
-    background-color: #d4edda;
-    color: black;
+    outline: 3px solid green !important;
+    background-color: #d4edda !important;
+    color: black !important;
 }
 
 .incorrect {
@@ -66,14 +66,12 @@
     color: black;
 }
 
-.disabled {
-    pointer-events: none;
-    opacity: 0.6;
+@media (hover:hover) {
+    .optionButton:not(:disabled):hover {
+        filter: brightness(0.8);
+    }
 }
 
-.optionButton:hover {
-    filter: brightness(0.8);
-}
 
 .optionButton span {
     position: absolute;
@@ -111,4 +109,89 @@
 .buttons button[type="submit"]:disabled {
     background-color: gray;
     cursor: not-allowed;
+}
+
+/* Success/Failure Modal styles */
+.modalContent {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+
+.modalContent img {
+    border-radius: 10px;
+    object-fit: fill;
+}
+
+.modalText {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.modalContent h2 {
+    font-size: 28px;
+}
+
+.modalSuccess {
+    outline: 5px solid #28a745;
+}
+
+.modalFailure {
+    outline: 5px solid #dc3545;
+}
+
+.successTitle {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.failureTitle {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.modalMessage {
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+.modalSuccess button {
+    background-color: #28a745 !important;
+}
+
+.modalSuccess button:hover {
+    background-color: #218838 !important;
+}
+
+.modalFailure button {
+    background-color: #dc3545 !important;
+}
+
+.modalFailure button:hover {
+    background-color: #c82333 !important;
+}
+
+.modalContent button {
+    /* Base styles */
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 12px 24px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.modalContent button:hover {
+    background-color: var(--primary-color-dark);
+    transform: translateY(-2px);
 }
