@@ -1,9 +1,5 @@
 import { createClient } from "@/utils/supabase/client";
-
-function getLocalDateString() {
-  const d = new Date();
-  return d.toLocaleDateString("en-US"); // YYYY-MM-DD
-}
+import { getLocalDateString } from "./games";
 
 export async function fetchTodaysTrivia() {
   const supabase = createClient();
@@ -18,3 +14,4 @@ export async function fetchTodaysTrivia() {
   if (error) throw error;
   return data ?? null;
 }
+
