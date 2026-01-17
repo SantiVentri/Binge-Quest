@@ -18,6 +18,9 @@ import Banner from "@/components/ui/games/Banner/Banner";
 import QuestionImage from "@/components/ui/games/QuestionImage/QuestionImage";
 import Modal from "@/components/ui/Modal/Modal";
 import Image from "next/image";
+import { submitGame } from "@/helpers/games";
+import { createClient } from "@/utils/supabase/client";
+import { hasPlayedToday } from "@/helpers/user";
 
 export default function TriviaGamePage() {
     const [isLoading, setIsLoading] = useState(true);
@@ -26,6 +29,10 @@ export default function TriviaGamePage() {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [showAnswer, setShowAnswer] = useState(false);
     const [openModal, setOpenModal] = useState(false);
+    const [hasPlayed, setHasPlayed] = useState(false);
+
+    const supabase = createClient();
+    const user = supabase.auth.getUser();
 
     // Gifs
     const successGif = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnE0azc0Y3V2bzBndjBhcDhqZ3ZhdGhrODQ3bzMwaWNha2JhNmxvNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JUXGVpncYAU8NJ6BWz/giphy.gif";
@@ -42,23 +49,47 @@ export default function TriviaGamePage() {
         e.preventDefault();
         if (!selectedOption) return;
         setIsLoading(true);
-        setShowAnswer(true);
-        setOpenModal(true);
-        setIsLoading(false);
+        try {
+            const userData = await (await user).data.user;
+            if (!userData) throw new Error("User not authenticated");
+
+            await submitGame({
+                user_id: userData.id,
+                game: "trivia-game",
+                game_date: new Date().toISOString(),
+                is_correct: selectedOption === todaysTrivia?.answer
+            });
+            setShowAnswer(true);
+        } catch {
+            alert("There was an error submitting your answer. Please try again.");
+        } finally {
+            setOpenModal(true);
+            setIsLoading(false);
+        }
     }
 
-    useEffect(() => {
-        const loadTrivia = async () => {
-            try {
-                const trivia = await fetchTodaysTrivia()
-                setTodaysTrivia(trivia || null)
-            } catch {
-                setError(true)
-            } finally {
-                setIsLoading(false)
-            }
+    const loadTrivia = async () => {
+        try {
+            const trivia = await fetchTodaysTrivia()
+            setTodaysTrivia(trivia || null)
+        } catch {
+            setError(true)
+        } finally {
+            setIsLoading(false)
         }
-        loadTrivia()
+    }
+
+    const checkPlayed = async () => {
+        const played = await hasPlayedToday({ game: "trivia-game" });
+        if (played) {
+            setHasPlayed(true);
+            setShowAnswer(true);
+        }
+    };
+
+    useEffect(() => {
+        loadTrivia();
+        checkPlayed();
     }, []);
 
     if (error) return <p>There was an error loading today's trivia.</p>
