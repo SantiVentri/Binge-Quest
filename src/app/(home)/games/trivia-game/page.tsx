@@ -170,7 +170,9 @@ export default function TriviaGamePage() {
                     )}
                 </div>
             ) : (
-                <EmptyListComponent />
+                !isLoading && (
+                    <EmptyListComponent />
+                )
             )}
         </main>
     )
