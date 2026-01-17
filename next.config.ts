@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "media*.giphy.com",
       },
+      {
+        protocol: "https",
+        hostname: "xscyhjniouateyibsogs.supabase.co",
+      },
     ],
   },
 };
