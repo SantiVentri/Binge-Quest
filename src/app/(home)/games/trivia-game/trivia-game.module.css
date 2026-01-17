@@ -111,7 +111,7 @@
     cursor: not-allowed;
 }
 
-/* Success/Failure Modal styles */
+/* Success/Failure/HasPlayed Modal styles */
 .modalContent {
     display: flex;
     align-items: center;
@@ -122,7 +122,7 @@
 
 .modalContent img {
     border-radius: 10px;
-    object-fit: fill;
+    object-fit: cover;
 }
 
 .modalText {
@@ -132,14 +132,16 @@
 }
 
 .modalContent h2 {
-    font-size: 28px;
+    font-size: 22px;
 }
 
 .modalSuccess {
+    z-index: 2000;
     outline: 5px solid #28a745;
 }
 
 .modalFailure {
+    z-index: 2000;
     outline: 5px solid #dc3545;
 }
 
@@ -161,6 +163,30 @@
     line-height: 1.5;
 }
 
+
+/* Modal Button Styles */
+.modalContent button {
+    /* Base styles */
+    border: none;
+    border-radius: 6px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 24px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+@media (hover:hover) {
+    .modalContent button:hover {
+        background-color: var(--primary-color-dark);
+        transform: translateY(-2px);
+    }
+}
+
 .modalSuccess button {
     background-color: #28a745 !important;
 }
@@ -175,23 +201,4 @@
 
 .modalFailure button:hover {
     background-color: #c82333 !important;
-}
-
-.modalContent button {
-    /* Base styles */
-    border: none;
-    border-radius: 6px;
-    color: white;
-    padding: 12px 24px;
-    width: 100%;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: transform 0.2s, background-color 0.2s;
-}
-
-.modalContent button:hover {
-    background-color: var(--primary-color-dark);
-    transform: translateY(-2px);
 }

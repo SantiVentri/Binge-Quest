@@ -23,25 +23,31 @@ import { createClient } from "@/utils/supabase/client";
 import { hasPlayedToday } from "@/helpers/user";
 
 export default function TriviaGamePage() {
+    // Loading and error states
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(false);
+
+    // Game states
     const [todaysTrivia, setTodaysTrivia] = useState<TriviaQuestion | null>(null);
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [showAnswer, setShowAnswer] = useState(false);
-    const [openModal, setOpenModal] = useState(false);
-    const [hasPlayed, setHasPlayed] = useState(false);
 
+    // Modals
+    const [openFeedbackModal, setOpenFeedbackModal] = useState(false);
+    const [openHasPlayedModal, setOpenHasPlayedModal] = useState(false);
+
+    // Supabase client and user
     const supabase = createClient();
     const user = supabase.auth.getUser();
 
     // Gifs
     const successGif = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnE0azc0Y3V2bzBndjBhcDhqZ3ZhdGhrODQ3bzMwaWNha2JhNmxvNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JUXGVpncYAU8NJ6BWz/giphy.gif";
     const failureGif = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzZ6MHU0YjNjeWg4c2l4aHNmcHJtaHBlY3h1aGQzcDNmY2k3MW15OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1BQdjXovIqSLS/giphy.gif";
+    const hasPlayedGif = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc3NkdWVrM2d5aXNyczBveXUwMjVrcDk1OWk4NG55N3JzMTRoNmRkaSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/p7ESzgUi7li93Hxjte/giphy.gif";
 
     const handleSelection = (option: string) => {
         if (isLoading) return;
         if (showAnswer) return;
-        setShowAnswer(false);
         setSelectedOption(option);
     }
 
@@ -50,7 +56,7 @@ export default function TriviaGamePage() {
         if (!selectedOption) return;
         setIsLoading(true);
         try {
-            const userData = await (await user).data.user;
+            const userData = (await user).data.user;
             if (!userData) throw new Error("User not authenticated");
 
             await submitGame({
@@ -63,7 +69,8 @@ export default function TriviaGamePage() {
         } catch {
             alert("There was an error submitting your answer. Please try again.");
         } finally {
-            setOpenModal(true);
+            setOpenFeedbackModal(true);
+            checkPlayed();
             setIsLoading(false);
         }
     }
@@ -82,7 +89,7 @@ export default function TriviaGamePage() {
     const checkPlayed = async () => {
         const played = await hasPlayedToday({ game: "trivia-game" });
         if (played) {
-            setHasPlayed(true);
+            setOpenHasPlayedModal(true);
             setShowAnswer(true);
         }
     };
@@ -132,10 +139,37 @@ export default function TriviaGamePage() {
                             </button>
                         </div>
                     </form>
-                    {openModal && (
+                    {openHasPlayedModal && (
+                        <Modal
+                            onClose={() => { }}
+                            className={styles.hasPlayedModal}
+                        >
+                            <div className={styles.modalContent}>
+                                <Image
+                                    src={hasPlayedGif}
+                                    width={460}
+                                    height={250}
+                                    alt={"Has Played Today Modal GIF"}
+                                    draggable={false}
+                                />
+                                <div className={styles.modalText}>
+                                    <h2 className={styles.successTitle}>You've already played today's trivia!</h2>
+                                    <p className={styles.modalMessage}>Come back tomorrow for a new question or checkout some of our other games in the home page!</p>
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        window.location.href = "/";
+                                    }}
+                                >
+                                    See Games
+                                </button>
+                            </div>
+                        </Modal>
+                    )}
+                    {openFeedbackModal && (
                         <Modal
                             onClose={() => {
-                                setOpenModal(false);
+                                setOpenFeedbackModal(false);
                                 setSelectedOption(null);
                             }}
                             className={selectedOption === todaysTrivia.answer ? styles.modalSuccess : styles.modalFailure}
@@ -145,7 +179,7 @@ export default function TriviaGamePage() {
                                     src={selectedOption === todaysTrivia.answer ? successGif : failureGif}
                                     alt={selectedOption === todaysTrivia.answer ? "Success" : "Failure"}
                                     width={460}
-                                    height={320}
+                                    height={selectedOption === todaysTrivia.answer ? 360 : 220}
                                 />
                                 <div className={styles.modalText}>
                                     <h2 className={selectedOption === todaysTrivia.answer ? styles.successTitle : styles.failureTitle}>
@@ -159,7 +193,7 @@ export default function TriviaGamePage() {
                                 </div>
                                 <button
                                     onClick={() => {
-                                        setOpenModal(false);
+                                        setOpenFeedbackModal(false);
                                         setSelectedOption(null);
                                     }}
                                 >
