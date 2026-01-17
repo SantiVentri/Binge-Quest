@@ -15,7 +15,7 @@ import { TriviaQuestion } from "@/types"
 // Components
 import EmptyListComponent from "@/components/ui/EmptyListComponent/EmptyListComponent"
 import Banner from "@/components/ui/games/Banner/Banner";
-import { QuestionImage } from "@/components/ui/games/QuestionImage/QuestionImage";
+import QuestionImage from "@/components/ui/games/QuestionImage/QuestionImage";
 import Modal from "@/components/ui/Modal/Modal";
 import Image from "next/image";
 

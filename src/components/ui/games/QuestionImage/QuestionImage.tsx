@@ -10,7 +10,7 @@ interface QuestionImageProps {
     alt?: string;
 }
 
-export function QuestionImage({ image, alt }: QuestionImageProps) {
+export default function QuestionImage({ image, alt }: QuestionImageProps) {
     return (
         <Image
             className={styles.image}
