@@ -1,37 +1,40 @@
 "use client";
 
+// Hooks
 import { useEffect, useState } from "react";
-import Banner from "../../games/Banner/Banner";
-import { createClient } from "@/utils/supabase/client";
+
+// Context
 import { useUser } from "@/context/AuthContext";
 
-export default function UserBanner() {
-    const [bannerUrl, setBannerUrl] = useState<string | null>(null);
-    const supabase = createClient();
+// Helpers
+import { fetchUserImages } from "@/helpers/user";
+
+// Components
+import Banner from "../../games/Banner/Banner";
+
+interface UserBannerProps {
+    bannerUrl?: string | null;
+}
+
+export default function UserBanner({ bannerUrl: propBannerUrl }: UserBannerProps) {
+    const [fetchedBanner, setFetchedBanner] = useState<string | null>(null);
     const user = useUser();
 
+    const displayBanner = propBannerUrl !== undefined ? propBannerUrl : fetchedBanner;
+
     useEffect(() => {
-        const fetchUserImages = async () => {
-            if (!user) return;
+        if (propBannerUrl !== undefined) return;
 
-            const { data, error } = await supabase
-                .from("profiles")
-                .select("banner")
-                .eq("id", user.id)
-                .single();
-
-            if (error) {
-                console.error("Error fetching user images:", error);
-                return;
-            }
-            setBannerUrl(data.banner);
+        async function getUserImages() {
+            const { banner } = await fetchUserImages(user?.id || "");
+            setFetchedBanner(banner);
         }
-        fetchUserImages();
-    }, [user]);
+        getUserImages();
+    }, [user, propBannerUrl]);
 
     return (
         <>
-            {bannerUrl && <Banner image={bannerUrl} alt="User banner" />}
+            {displayBanner && <Banner image={displayBanner} alt="User banner" />}
         </>
     )
 }
