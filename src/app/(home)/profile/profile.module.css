@@ -1,0 +1,31 @@
+.profilePage {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 92vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--foreground-color);
+    border-radius: 20px;
+    margin-top: 90px;
+    padding: 20px;
+    max-width: 800px;
+    width: 90%;
+    gap: 10px;
+}
+
+.userData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+}
+
+.avatar {
+    border-radius: 50%;
+}
