@@ -7,6 +7,16 @@
     overflow: hidden;
 }
 
+.levelsIcon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: var(--background-color);
+    border-radius: 50%;
+    padding: 10px;
+    z-index: 3000;
+}
+
 .form {
     display: flex;
     flex-direction: column;
@@ -72,7 +82,6 @@
     }
 }
 
-
 .optionButton span {
     position: absolute;
     top: -10px;
@@ -84,10 +93,10 @@
     border-radius: 5px;
 }
 
-.buttons {
+.form .buttons {
     display: flex;
+    flex-direction: column;
     width: 100%;
-    gap: 10px;
 }
 
 .buttons button[type="submit"] {
@@ -102,11 +111,11 @@
     cursor: pointer;
 }
 
-.buttons button[type="submit"]:hover {
+.buttons button[type="submit"]:hover, .buttons .button[type="submit"]:hover {
     background-color: var(--primary-color-dark);
 }
 
-.buttons button[type="submit"]:disabled {
+.buttons button[type="submit"]:disabled, .buttons .button[type="submit"]:disabled {
     background-color: gray;
     cursor: not-allowed;
 }
@@ -165,8 +174,17 @@
 
 
 /* Modal Button Styles */
-.modalContent button {
+.modalContent .buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.modalContent .buttons .button {
     /* Base styles */
+    display: flex;
+    justify-content: center;
     border: none;
     border-radius: 6px;
     background-color: var(--primary-color);
@@ -176,29 +194,28 @@
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 20px;
     transition: transform 0.2s, background-color 0.2s;
 }
 
 @media (hover:hover) {
-    .modalContent button:hover {
+    .modalContent .button:hover {
         background-color: var(--primary-color-dark);
         transform: translateY(-2px);
     }
 }
 
-.modalSuccess button {
+.modalSuccess .button {
     background-color: #28a745 !important;
 }
 
-.modalSuccess button:hover {
+.modalSuccess .button:hover {
     background-color: #218838 !important;
 }
 
-.modalFailure button {
+.modalFailure .button {
     background-color: #dc3545 !important;
 }
 
-.modalFailure button:hover {
+.modalFailure .button:hover {
     background-color: #c82333 !important;
 }

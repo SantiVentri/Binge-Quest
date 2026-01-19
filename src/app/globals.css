@@ -25,6 +25,7 @@ html {
 }
 
 main {
+  position: relative;
   display: flex;
   min-height: 94vh;
 }

@@ -8,6 +8,11 @@ import { useEffect, useState } from "react"
 
 // Helpers
 import { fetchTodaysTrivia } from "@/helpers/trivia-game"
+import { submitGame } from "@/helpers/games";
+import { hasPlayedToday } from "@/helpers/user";
+
+// Utils
+import { createClient } from "@/utils/supabase/client";
 
 // Types
 import { TriviaQuestion } from "@/types"
@@ -18,9 +23,10 @@ import Banner from "@/components/ui/games/Banner/Banner";
 import QuestionImage from "@/components/ui/games/QuestionImage/QuestionImage";
 import Modal from "@/components/ui/Modal/Modal";
 import Image from "next/image";
-import { submitGame } from "@/helpers/games";
-import { createClient } from "@/utils/supabase/client";
-import { hasPlayedToday } from "@/helpers/user";
+import Link from "next/link";
+
+// Icons
+import { Grid2x2 } from "lucide-react";
 
 export default function TriviaGamePage() {
     // Loading and error states
@@ -103,6 +109,9 @@ export default function TriviaGamePage() {
 
     return (
         <main>
+            <Link href={"/games/trivia-game/levels"} className={styles.levelsIcon}>
+                <Grid2x2 size={25} color="white" />
+            </Link>
             {todaysTrivia ? (
                 <div className={styles.container}>
                     {todaysTrivia.banner && (
@@ -156,13 +165,14 @@ export default function TriviaGamePage() {
                                     <h2 className={styles.successTitle}>You've already played today's trivia!</h2>
                                     <p className={styles.modalMessage}>Come back tomorrow for a new question or checkout some of our other games in the home page!</p>
                                 </div>
-                                <button
-                                    onClick={() => {
-                                        window.location.href = "/";
-                                    }}
-                                >
-                                    See Games
-                                </button>
+                                <div className={styles.buttons}>
+                                    <Link href={"/games/trivia-game/levels"} className={styles.button}>
+                                        See all levels
+                                    </Link>
+                                    <Link href={"/"} className={styles.button} style={{ backgroundColor: "#0E0E0E" }}>
+                                        See other games
+                                    </Link>
+                                </div>
                             </div>
                         </Modal>
                     )}
