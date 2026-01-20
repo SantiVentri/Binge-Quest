@@ -197,14 +197,17 @@ export default function TriviaGamePage() {
                                             : <>The correct answer was <strong>&quot;{todaysImpostor.answer}&quot;</strong>. Don&apos;t worry, even the greats have off days. Catch you at the next screening!</>}
                                     </p>
                                 </div>
-                                <button
-                                    onClick={() => {
-                                        setOpenFeedbackModal(false);
-                                        setSelectedOption(null);
-                                    }}
-                                >
-                                    Close
-                                </button>
+                                <div className={styles.buttons}>
+                                    <button
+                                        className={styles.button}
+                                        onClick={() => {
+                                            setOpenFeedbackModal(false);
+                                            setSelectedOption(null);
+                                        }}
+                                    >
+                                        Close
+                                    </button>
+                                </div>
                             </div>
                         </Modal>
                     )}
