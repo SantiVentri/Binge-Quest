@@ -4,7 +4,7 @@
 import styles from "./guess-the-film.module.css";
 
 // Hooks
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
 // Helpers
 import { fetchTodaysGame } from "@/helpers/games";
@@ -26,7 +26,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 // Icons
-import { Grid2x2 } from "lucide-react";
+import { Grid2x2, Delete } from "lucide-react";
 
 export default function GuessTheFilmPage() {
     // Loading and error states
@@ -35,7 +35,7 @@ export default function GuessTheFilmPage() {
 
     // Game states
     const [todaysGuessGame, setTodaysGuessGame] = useState<GuessGame | null>(null);
-    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const [selectedOption, setSelectedOption] = useState<string>("");
     const [showAnswer, setShowAnswer] = useState(false);
 
     // Modals
@@ -44,7 +44,9 @@ export default function GuessTheFilmPage() {
 
     // Supabase client and user
     const supabase = createClient();
-    const user = supabase.auth.getUser();
+
+    // Input Ref
+    const inputRef = useRef<HTMLInputElement>(null);
 
     // Gifs
     const successGif = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnE0azc0Y3V2bzBndjBhcDhqZ3ZhdGhrODQ3bzMwaWNha2JhNmxvNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JUXGVpncYAU8NJ6BWz/giphy.gif";
@@ -54,19 +56,50 @@ export default function GuessTheFilmPage() {
     // Banner image
     const banner = "https://xscyhjniouateyibsogs.supabase.co/storage/v1/object/public/images/Banner.png";
 
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (isLoading || showAnswer) return;
+        setSelectedOption(e.target.value);
+    }
+
+    const handleContainerClick = () => {
+        inputRef.current?.focus();
+    }
+
+    const handleKeyClick = (key: string) => {
+        if (isLoading || showAnswer) return;
+
+        if (key === "Backspace") {
+            setSelectedOption(prev => prev.slice(0, -1));
+        } else {
+            const maxLength = todaysGuessGame?.answer.replace(/\s/g, "").length || 0;
+            if (selectedOption.length < maxLength) {
+                setSelectedOption(prev => prev + key);
+            }
+        }
+        inputRef.current?.focus();
+    };
+
+    const keyboardRows = [
+        ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+        ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+        ["Z", "X", "C", "V", "B", "N", "M", "Backspace"]
+    ];
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         if (!selectedOption) return;
         setIsLoading(true);
         try {
-            const userData = (await user).data.user;
-            if (!userData) throw new Error("User not authenticated");
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) throw new Error("User not authenticated");
+
+            const isCorrect = selectedOption.toLowerCase().trim() === todaysGuessGame?.answer.toLowerCase().replace(/\s/g, "");
 
             await submitGame({
-                user_id: userData.id,
+                user_id: user.id,
                 game: "guess_the_film",
                 game_date: new Date().toISOString(),
-                is_correct: selectedOption === todaysGuessGame?.answer
+                is_correct: isCorrect
             });
             setShowAnswer(true);
         } catch {
@@ -116,6 +149,56 @@ export default function GuessTheFilmPage() {
                         <QuestionImage image={todaysGuessGame.image} alt="Today's trivia question image" />
                         <h1>Guess The Film</h1>
 
+                        <div className={styles.inputContainer} onClick={handleContainerClick}>
+                            {(() => {
+                                let charIndex = 0;
+                                return todaysGuessGame.answer.split(" ").map((word, wIdx) => {
+                                    const wordComponent = (
+                                        <div key={wIdx} className={styles.word}>
+                                            {word.split("").map((char, cIdx) => {
+                                                const currentLetter = selectedOption[charIndex] || "";
+                                                const isActive = charIndex === selectedOption.length && !showAnswer;
+                                                charIndex++;
+                                                return (
+                                                    <div key={cIdx} className={`${styles.letterSlot} ${isActive ? styles.activeSlot : ""}`}>
+                                                        {currentLetter}
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                    );
+                                    // Space does not consume a character index
+                                    return wordComponent;
+                                })
+                            })()}
+                            <input
+                                ref={inputRef}
+                                type="text"
+                                className={styles.hiddenInput}
+                                value={selectedOption}
+                                onChange={handleInputChange}
+                                maxLength={todaysGuessGame.answer.replace(/\s/g, "").length}
+                                autoComplete="off"
+                            />
+                        </div>
+
+                        <div className={styles.keyboardContainer}>
+                            {keyboardRows.map((row, rIdx) => (
+                                <div key={rIdx} className={styles.keyboardRow}>
+                                    {row.map((key) => (
+                                        <button
+                                            key={key}
+                                            type="button"
+                                            className={`${styles.keyboardKey} ${key === "Backspace" ? styles.specialKey : ""}`}
+                                            onClick={() => handleKeyClick(key)}
+                                        >
+                                            {key === "Backspace" ? <Delete size={20} color="black" /> : key}
+                                        </button>
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+
                         <div className={styles.buttons}>
                             <button type="submit" className={styles.submitButton} disabled={isLoading || !selectedOption}>
                                 {isLoading ? "Submitting..." : "Submit Answer"}
@@ -150,23 +233,23 @@ export default function GuessTheFilmPage() {
                         <Modal
                             onClose={() => {
                                 setOpenFeedbackModal(false);
-                                setSelectedOption(null);
+                                setSelectedOption("");
                             }}
-                            className={selectedOption === todaysGuessGame.answer ? styles.modalSuccess : styles.modalFailure}
+                            className={selectedOption.toLowerCase().trim() === todaysGuessGame.answer.toLowerCase().replace(/\s/g, "") ? styles.modalSuccess : styles.modalFailure}
                         >
                             <div className={styles.modalContent}>
                                 <Image
-                                    src={selectedOption === todaysGuessGame.answer ? successGif : failureGif}
-                                    alt={selectedOption === todaysGuessGame.answer ? "Success" : "Failure"}
+                                    src={selectedOption.toLowerCase().trim() === todaysGuessGame.answer.toLowerCase().replace(/\s/g, "") ? successGif : failureGif}
+                                    alt={selectedOption.toLowerCase().trim() === todaysGuessGame.answer.toLowerCase().replace(/\s/g, "") ? "Success" : "Failure"}
                                     width={460}
-                                    height={selectedOption === todaysGuessGame.answer ? 360 : 220}
+                                    height={selectedOption.toLowerCase().trim() === todaysGuessGame.answer.toLowerCase().replace(/\s/g, "") ? 360 : 220}
                                 />
                                 <div className={styles.modalText}>
-                                    <h2 className={selectedOption === todaysGuessGame.answer ? styles.successTitle : styles.failureTitle}>
-                                        {selectedOption === todaysGuessGame.answer ? "Blockbuster Performance!" : "Plot Twist! Almost had it!"}
+                                    <h2 className={selectedOption.toLowerCase().trim() === todaysGuessGame.answer.toLowerCase().replace(/\s/g, "") ? styles.successTitle : styles.failureTitle}>
+                                        {selectedOption.toLowerCase().trim() === todaysGuessGame.answer.toLowerCase().replace(/\s/g, "") ? "Blockbuster Performance!" : "Plot Twist! Almost had it!"}
                                     </h2>
                                     <p className={styles.modalMessage}>
-                                        {selectedOption === todaysGuessGame.answer
+                                        {selectedOption.toLowerCase().trim() === todaysGuessGame.answer.toLowerCase().replace(/\s/g, "")
                                             ? <>You nailed that scene! You're a true cinephile. <br /> Come back tomorrow for the sequel.</>
                                             : <>The correct answer was <strong>&quot;{todaysGuessGame.answer}&quot;</strong>. Don&apos;t worry, even the greats have off days. Catch you at the next screening!</>}
                                     </p>
@@ -176,7 +259,7 @@ export default function GuessTheFilmPage() {
                                         className={styles.button}
                                         onClick={() => {
                                             setOpenFeedbackModal(false);
-                                            setSelectedOption(null);
+                                            setSelectedOption("");
                                         }}
                                     >
                                         Close

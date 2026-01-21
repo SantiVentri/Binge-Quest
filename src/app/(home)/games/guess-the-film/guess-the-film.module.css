@@ -259,3 +259,76 @@
     opacity: 0;
     pointer-events: none;
 }
+
+.keyboardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 20px;
+}
+
+.keyboardRow {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.keyboardKey {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    min-width: 40px;
+    height: 55px;
+    font-size: 20px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background-color 0.1s;
+    text-transform: uppercase;
+    user-select: none;
+}
+
+.keyboardKey:active {
+    background-color: #e5e5e5;
+}
+
+@media (hover:hover) {
+    .keyboardKey:hover {
+        background-color: #d1d5db;
+    }
+}
+
+.specialKey {
+    min-width: 60px;
+}
+
+.skipButton {
+    background: none;
+    border: none;
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.skipButton:disabled {
+    color: gray;
+    cursor: not-allowed;
+}
+
+@media (max-width: 500px) {
+    .keyboardKey {
+        padding: 8px;
+        min-width: 25px;
+        height: 40px;
+        font-size: 14px;
+    }
+}
