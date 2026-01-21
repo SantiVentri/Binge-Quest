@@ -7,7 +7,7 @@ import styles from "./find-the-impostor.module.css";
 import { useEffect, useState } from "react"
 
 // Helpers
-import { fetchTodaysImpostor } from "@/helpers/impostor-game";
+import { fetchTodaysGame } from "@/helpers/games";
 import { submitGame } from "@/helpers/games";
 import { hasPlayedToday } from "@/helpers/user";
 
@@ -67,7 +67,7 @@ export default function TriviaGamePage() {
 
             await submitGame({
                 user_id: userData.id,
-                game: "find-the-impostor",
+                game: "find_the_impostor",
                 game_date: new Date().toISOString(),
                 is_correct: selectedOption === todaysImpostor?.answer
             });
@@ -83,7 +83,7 @@ export default function TriviaGamePage() {
 
     const loadImpostorGame = async () => {
         try {
-            const impostorGame = await fetchTodaysImpostor()
+            const impostorGame = await fetchTodaysGame({ game: "find_the_impostor" });
             setTodaysImpostor(impostorGame || null)
         } catch {
             setError(true)
@@ -93,7 +93,7 @@ export default function TriviaGamePage() {
     }
 
     const checkPlayed = async () => {
-        const played = await hasPlayedToday({ game: "find-the-impostor" });
+        const played = await hasPlayedToday({ game: "find_the_impostor" });
         if (played) {
             setOpenHasPlayedModal(true);
             setShowAnswer(true);

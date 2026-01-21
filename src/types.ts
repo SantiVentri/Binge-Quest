@@ -18,9 +18,17 @@ export interface ImpostorGame {
     release_at: string; // ISO date string
 }
 
+export interface GuessGame {
+    id: string;
+    title: string;
+    image: string;
+    answer: string;
+    release_at: string; // ISO date string
+}
+
 export interface GameSessionProps {
     user_id: string;
     game_date: string;
-    game: "trivia-game" | "find-the-impostor";
+    game: "trivia_game" | "find_the_impostor" | "guess_the_film";
     is_correct: boolean;
 }

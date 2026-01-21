@@ -7,7 +7,7 @@ import styles from "./trivia-game.module.css";
 import { useEffect, useState } from "react"
 
 // Helpers
-import { fetchTodaysTrivia } from "@/helpers/trivia-game"
+import { fetchTodaysGame } from "@/helpers/games";
 import { submitGame } from "@/helpers/games";
 import { hasPlayedToday } from "@/helpers/user";
 
@@ -67,7 +67,7 @@ export default function TriviaGamePage() {
 
             await submitGame({
                 user_id: userData.id,
-                game: "trivia-game",
+                game: "trivia_game",
                 game_date: new Date().toISOString(),
                 is_correct: selectedOption === todaysTrivia?.answer
             });
@@ -83,7 +83,7 @@ export default function TriviaGamePage() {
 
     const loadTrivia = async () => {
         try {
-            const trivia = await fetchTodaysTrivia()
+            const trivia = await fetchTodaysGame({ game: "trivia_game" });
             setTodaysTrivia(trivia || null)
         } catch {
             setError(true)
@@ -93,7 +93,7 @@ export default function TriviaGamePage() {
     }
 
     const checkPlayed = async () => {
-        const played = await hasPlayedToday({ game: "trivia-game" });
+        const played = await hasPlayedToday({ game: "trivia_game" });
         if (played) {
             setOpenHasPlayedModal(true);
             setShowAnswer(true);
