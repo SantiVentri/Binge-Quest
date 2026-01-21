@@ -26,13 +26,19 @@ export default function Footer() {
               <a href="/about">About</a>
             </li>
             <li>
+              <a href="/profile">My Profile</a>
+            </li>
+          </ul>
+          <ul>
+            <h4>Games</h4>
+            <li>
               <a href="/games/trivia-game">Trivia Game</a>
             </li>
             <li>
               <a href="/games/find-the-impostor">Find the Impostor</a>
             </li>
             <li>
-              <a href="/profile"></a>
+              <a href="/games/guess-the-film">Guess The Film</a>
             </li>
           </ul>
           <ul>

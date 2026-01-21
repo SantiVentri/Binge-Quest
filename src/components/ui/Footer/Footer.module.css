@@ -27,7 +27,16 @@
 .footer nav ul {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+}
+
+.footer nav h4 {
+  margin-bottom: 4px;
+}
+
+.footer nav li {
+  display: flex;
+  align-items: center;
+  height: 30px;
 }
 
 .bgTitle {
