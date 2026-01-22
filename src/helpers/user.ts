@@ -52,24 +52,29 @@ export async function fetchUserImages(userId: string): Promise<{ banner: string 
 export async function fetchUserTopGames(userId: string) {
   const supabase = createClient();
 
-  try {
-    const {data, error} = await supabase
+  const { data, error } = await supabase
     .from("game_sessions")
-    .select("game, count(id) as play_count")
-    .eq("user_id", userId)
-    .order("play_count", { ascending: false })
-    .limit(3);
+    .select("game")
+    .eq("user_id", userId);
 
-    if (error) {
-      throw error;
-    }
-
-    return data ?? [];
-    
-  } catch (error) {
+  if (error) {
     console.error("Error fetching user top games:", error);
     return [];
   }
+
+  // Count occurrences of each game
+  const counts: Record<string, number> = {};
+
+  // Tally up the games
+  for (const row of data) {
+    counts[row.game] = (counts[row.game] || 0) + 1;
+  }
+
+  // Convert counts to sorted array and get top 3
+  return Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([game, count]) => ({ game, count }));
 }
 
 export async function fetchGameWinRate(userId: string, game: GameSessionProps["game"]) {
