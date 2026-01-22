@@ -1,6 +1,5 @@
 import { GameSessionProps } from "@/types";
 import { createClient } from "@/utils/supabase/client";
-import { create } from "domain";
 
 export async function hasPlayedToday({ game }: Pick<GameSessionProps, "game">) {
     const supabase = createClient();
@@ -46,4 +45,55 @@ export async function fetchUserImages(userId: string): Promise<{ banner: string 
     banner: data.banner,
     avatar: data.avatar,
   };
+}
+
+
+// Fetch Stats
+export async function fetchUserTopGames(userId: string) {
+  const supabase = createClient();
+
+  try {
+    const {data, error} = await supabase
+    .from("game_sessions")
+    .select("game, count(id) as play_count")
+    .eq("user_id", userId)
+    .order("play_count", { ascending: false })
+    .limit(3);
+
+    if (error) {
+      throw error;
+    }
+
+    return data ?? [];
+    
+  } catch (error) {
+    console.error("Error fetching user top games:", error);
+    return [];
+  }
+}
+
+export async function fetchGameWinRate(userId: string, game: GameSessionProps["game"]) {
+  const supabase = createClient();
+
+  try {
+    const { data, error } = await supabase
+      .from("game_sessions")
+      .select("is_correct")
+      .eq("user_id", userId)
+      .eq("game", game);
+
+    if (error) {
+      throw error;
+    }
+
+    const totalGames = data?.length || 0;
+    const correctGames = data?.filter((record) => record.is_correct).length || 0;
+    const winRate = totalGames > 0 ? (correctGames / totalGames) * 100 : 0;
+
+    return winRate;
+  } catch (error) {
+    console.error("Error fetching game win rate:", error);
+    return 0;
+  }
+    
 }
