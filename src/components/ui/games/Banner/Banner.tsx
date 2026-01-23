@@ -4,9 +4,10 @@ import styles from "./Banner.module.css";
 interface BannerProps {
     image: string;
     alt?: string;
+    noGradient?: boolean;
 }
 
-export default function Banner({ image, alt }: BannerProps) {
+export default function Banner({ image, alt, noGradient }: BannerProps) {
     return (
         <div className={styles.container}>
             <Image
@@ -18,7 +19,7 @@ export default function Banner({ image, alt }: BannerProps) {
                 draggable={false}
                 priority
             />
-            <div className={styles.gradient} />
+            {!noGradient && <div className={styles.gradient} />}
         </div>
     )
 }

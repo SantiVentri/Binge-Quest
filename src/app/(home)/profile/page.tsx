@@ -9,9 +9,9 @@ import { fetchAllGamesWinRates, fetchUserImages, fetchUserTopGames } from "@/hel
 import { useAuth } from "@/context/AuthContext";
 
 // Components
-import UserBanner from "@/components/ui/User/UserBanner/UserBanner";
 import Image from "next/image";
 import Link from "next/link";
+import Banner from "@/components/ui/games/Banner/Banner";
 
 // Icons
 import SettingsIcon from "../../../../public/icons/Settings.png";
@@ -79,7 +79,7 @@ export default function ProfilePage() {
 
     return (
         <main className={styles.profilePage}>
-            <UserBanner bannerUrl={banner} />
+            <Banner image={banner} alt={`${user.email}'s banner`} />
             <div className={styles.container}>
                 <Link href={"/profile/settings"} className={styles.settingsLink}>
                     <Image
