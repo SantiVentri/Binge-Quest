@@ -11,10 +11,11 @@
     background-color: var(--foreground-color);
     border-radius: 20px;
     margin-top: 90px;
+    margin-bottom: 40px;
     padding: 20px;
     max-width: 800px;
     width: 90%;
-    gap: 30px;
+    gap: 20px;
 }
 
 .userData {
@@ -22,6 +23,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    margin-top: 10px;
     gap: 15px;
 }
 
@@ -30,6 +32,8 @@
 }
 
 /* Stats section */
+
+/* Top Games */
 .topGames {
     display: flex;
     flex-direction: column;
@@ -92,4 +96,58 @@
     width: 220px;
     height: 134px;
     background-color: var(--foreground-color);
+}
+
+/* Rates */
+.winRates {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.ratesList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+}
+
+.rateItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #474473;
+    border-radius: 15px;
+    padding: 15px 20px;
+    width: 100%;
+}
+
+.data {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.ratesHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 20px;
+    font-weight: bold;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.headerData {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.data .rate {
+    font-weight: bold;
+    font-size: 18px;
 }

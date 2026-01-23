@@ -5,12 +5,18 @@ import styles from "./profile.module.css";
 
 // Hooks and Helpers
 import { useEffect, useState } from "react";
-import { fetchUserImages, fetchUserTopGames } from "@/helpers/user";
+import { fetchAllGamesWinRates, fetchUserImages, fetchUserTopGames } from "@/helpers/user";
 import { useAuth } from "@/context/AuthContext";
 
 // Components
 import UserBanner from "@/components/ui/User/UserBanner/UserBanner";
 import Image from "next/image";
+
+const gameTitles: Record<string, string> = {
+    "guess_the_film": "🎬 Guess The Film",
+    "trivia_game": "🧠 Trivia Game",
+    "find_the_impostor": "🔍 Find The Impostor"
+};
 
 export default function ProfilePage() {
     const { user, loading: authLoading } = useAuth();
@@ -23,6 +29,7 @@ export default function ProfilePage() {
     // Stats states
     const [isLoadingStats, setIsLoadingStats] = useState<boolean>(true);
     const [topGames, setTopGames] = useState<any[]>([]);
+    const [winRates, setWinRates] = useState<{ game: string; correct: number; total: number; winRate: number | null }[]>([]);
 
     // Fetch user data
     useEffect(() => {
@@ -49,7 +56,10 @@ export default function ProfilePage() {
 
             setIsLoadingStats(true);
             const top = await fetchUserTopGames(user.id);
+            const rates = await fetchAllGamesWinRates(user.id);
+
             setTopGames(top);
+            setWinRates(rates);
             setIsLoadingStats(false);
         }
 
@@ -113,6 +123,26 @@ export default function ProfilePage() {
                             })}
                         </ul>
                     )}
+                </section>
+                <section className={styles.winRates}>
+                    <div className={styles.ratesHeader}>
+                        <span>Game</span>
+                        <div className={styles.headerData}>
+                            <span>Score</span>
+                            <span>Win Rate</span>
+                        </div>
+                    </div>
+                    <ul className={styles.ratesList}>
+                        {winRates.map((rate) => (
+                            <li key={rate.game} className={styles.rateItem}>
+                                <h3>{gameTitles[rate.game]}</h3>
+                                <div className={styles.data}>
+                                    <p>{rate.total > 0 ? `${rate.correct}/${rate.total}` : "-/-"}</p>
+                                    <p className={styles.rate}>{rate.winRate !== null ? `${rate.winRate}%` : "-"}</p>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
                 </section>
             </div>
         </main>

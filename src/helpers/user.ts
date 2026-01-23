@@ -77,6 +77,53 @@ export async function fetchUserTopGames(userId: string) {
     .map(([game, count]) => ({ game, count }));
 }
 
+export async function fetchAllGamesWinRates(userId: string) {
+  const supabase = createClient();
+
+  try {
+    const { data, error } = await supabase
+      .from("game_sessions")
+      .select("game, is_correct")
+      .eq("user_id", userId);
+
+    if (error) {
+      throw error;
+    }
+
+    const gamesToCheck = ["guess_the_film", "trivia_game", "find_the_impostor"];
+    const stats: Record<string, { total: number; correct: number }> = {};
+
+    // Initialize stats
+    gamesToCheck.forEach(g => {
+        stats[g] = { total: 0, correct: 0 };
+    });
+
+    // Calculate stats
+    data?.forEach((session) => {
+        if (stats[session.game]) {
+            stats[session.game].total++;
+            if (session.is_correct) {
+                stats[session.game].correct++;
+            }
+        }
+    });
+
+    return gamesToCheck.map((game) => {
+        const { total, correct } = stats[game];
+        return {
+            game,
+            correct,
+            total,
+            winRate: total === 0 ? null : Math.round((correct / total) * 100)
+        };
+    });
+
+  } catch (error) {
+    console.error("Error fetching all games win rates:", error);
+    return [];
+  }
+}
+
 export async function fetchGameWinRate(userId: string, game: GameSessionProps["game"]) {
   const supabase = createClient();
 
