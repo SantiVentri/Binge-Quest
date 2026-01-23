@@ -11,7 +11,12 @@ import { useAuth } from "@/context/AuthContext";
 // Components
 import UserBanner from "@/components/ui/User/UserBanner/UserBanner";
 import Image from "next/image";
+import Link from "next/link";
 
+// Icons
+import SettingsIcon from "../../../../public/icons/Settings.png";
+
+// Game Titles
 const gameTitles: Record<string, string> = {
     "guess_the_film": "🎬 Guess The Film",
     "trivia_game": "🧠 Trivia Game",
@@ -76,6 +81,15 @@ export default function ProfilePage() {
         <main className={styles.profilePage}>
             <UserBanner bannerUrl={banner} />
             <div className={styles.container}>
+                <Link href={"/profile/settings"} className={styles.settingsLink}>
+                    <Image
+                        src={SettingsIcon}
+                        height={25}
+                        width={25}
+                        alt="Settings icon"
+                        draggable={false}
+                    />
+                </Link>
                 <section className={styles.userData}>
                     {avatar && (
                         <Image
@@ -105,6 +119,7 @@ export default function ProfilePage() {
                                         {game ? (
                                             <>
                                                 <Image
+                                                    className={styles.gameImage}
                                                     src={`/images/games/${game.game}.png`}
                                                     height={134}
                                                     width={220}
