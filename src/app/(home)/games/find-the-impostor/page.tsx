@@ -160,6 +160,7 @@ export default function TriviaGamePage() {
                                     height={250}
                                     alt={"Has Played Today Modal GIF"}
                                     draggable={false}
+                                    unoptimized
                                 />
                                 <div className={styles.modalText}>
                                     <h2 className={styles.successTitle}>You've already played today's game!</h2>
@@ -186,6 +187,7 @@ export default function TriviaGamePage() {
                                     alt={selectedOption === todaysImpostor.answer ? "Success" : "Failure"}
                                     width={460}
                                     height={selectedOption === todaysImpostor.answer ? 360 : 220}
+                                    unoptimized
                                 />
                                 <div className={styles.modalText}>
                                     <h2 className={selectedOption === todaysImpostor.answer ? styles.successTitle : styles.failureTitle}>

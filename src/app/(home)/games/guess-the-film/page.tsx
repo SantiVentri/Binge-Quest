@@ -144,7 +144,7 @@ export default function GuessTheFilmPage() {
             </Link>
             {todaysGuessGame ? (
                 <div className={styles.container}>
-                    <Banner image={banner} alt="Today's trivia's banner" />
+                    {banner && <Banner image={banner} alt="Guess The Film Banner" />}
                     <form className={styles.form} onSubmit={handleSubmit}>
                         <QuestionImage image={todaysGuessGame.image} alt="Today's trivia question image" />
                         <h1>Guess The Film</h1>
@@ -216,6 +216,7 @@ export default function GuessTheFilmPage() {
                                     width={460}
                                     height={250}
                                     alt={"Has Played Today Modal GIF"}
+                                    unoptimized
                                     draggable={false}
                                 />
                                 <div className={styles.modalText}>
@@ -243,6 +244,7 @@ export default function GuessTheFilmPage() {
                                     alt={selectedOption.toLowerCase().trim() === todaysGuessGame.answer.toLowerCase().replace(/\s/g, "") ? "Success" : "Failure"}
                                     width={460}
                                     height={selectedOption.toLowerCase().trim() === todaysGuessGame.answer.toLowerCase().replace(/\s/g, "") ? 360 : 220}
+                                    unoptimized
                                 />
                                 <div className={styles.modalText}>
                                     <h2 className={selectedOption.toLowerCase().trim() === todaysGuessGame.answer.toLowerCase().replace(/\s/g, "") ? styles.successTitle : styles.failureTitle}>
