@@ -15,6 +15,7 @@ import Banner from "@/components/ui/games/Banner/Banner";
 
 // Icons
 import SettingsIcon from "../../../../public/icons/Settings.png";
+import SettingsModal from "@/components/ui/User/Settings/Modal/SettingsModal";
 
 // Game Titles
 const gameTitles: Record<string, string> = {
@@ -35,6 +36,9 @@ export default function ProfilePage() {
     const [isLoadingStats, setIsLoadingStats] = useState<boolean>(true);
     const [topGames, setTopGames] = useState<any[]>([]);
     const [winRates, setWinRates] = useState<{ game: string; correct: number; total: number; winRate: number | null }[]>([]);
+
+    // Settings Modal state
+    const [showSettingsModal, setShowSettings] = useState<boolean>(false);
 
     // Fetch user data
     useEffect(() => {
@@ -79,9 +83,17 @@ export default function ProfilePage() {
 
     return (
         <main className={styles.profilePage}>
+            {showSettingsModal && (
+                <SettingsModal
+                    avatar={avatar}
+                    banner={banner}
+                    onClose={() => setShowSettings(false)}
+                    onAvatarUpdate={(newAvatar) => setAvatar(newAvatar)}
+                />
+            )}
             <Banner image={banner} alt={`${user.email}'s banner`} />
             <div className={styles.container}>
-                <Link href={"/profile/settings"} className={styles.settingsLink}>
+                <button className={styles.settingsIcon} onClick={() => setShowSettings(true)}>
                     <Image
                         src={SettingsIcon}
                         height={25}
@@ -89,7 +101,7 @@ export default function ProfilePage() {
                         alt="Settings icon"
                         draggable={false}
                     />
-                </Link>
+                </button>
                 <section className={styles.userData}>
                     {avatar && (
                         <Image

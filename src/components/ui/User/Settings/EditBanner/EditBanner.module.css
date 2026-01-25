@@ -1,0 +1,45 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.banner {
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.buttons button {
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+    border: none;
+    padding: 8px 12px;
+    font-weight: bold;
+    font-size: 14px;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.upload {
+    background-color: black;
+}
+
+.delete {
+    background-color: red;
+}
+
+@media (hover:hover) {
+    .upload:hover {
+        background-color: #222222;
+    }
+    .delete:hover {
+        background-color: rgb(255, 78, 78);
+    }
+}
