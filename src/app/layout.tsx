@@ -11,6 +11,7 @@ import { Inter, Poppins } from "next/font/google";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import { AuthProvider } from "@/context/AuthContext";
+import { ToastProvider } from "@/context/ToastContext";
 
 
 const poppins = Poppins({
@@ -47,9 +48,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans` + ` ${poppins.variable} font-sans`}>
-        <AuthProvider serverUser={user}>
-          {children}
-        </AuthProvider>
+        <ToastProvider>
+          <AuthProvider serverUser={user}>
+            {children}
+          </AuthProvider>
+        </ToastProvider>
       </body>
     </html>
   );
