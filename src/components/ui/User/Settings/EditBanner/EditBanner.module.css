@@ -1,45 +1,60 @@
 .container {
     display: flex;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .banner {
     border-radius: 10px;
     object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .buttons {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row;
+    gap: 8px;
 }
 
 .buttons button {
     display: flex;
     align-items: center;
-    border-radius: 7px;
+    justify-content: center;
+    border-radius: 8px;
     border: none;
-    padding: 8px 12px;
-    font-weight: bold;
-    font-size: 14px;
+    padding: 10px 14px;
+    font-weight: 600;
+    font-size: 13px;
     gap: 8px;
     cursor: pointer;
+    flex: 1;
+    transition: all 0.2s ease;
 }
 
 .upload {
-    background-color: black;
+    background-color: var(--primary-color);
+    color: white;
 }
 
 .delete {
-    background-color: red;
+    background-color: #dc2626;
+    color: white;
+    border: none;
+}
+
+.upload:disabled,
+.delete:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 @media (hover:hover) {
-    .upload:hover {
-        background-color: #222222;
+    .upload:hover:not(:disabled) {
+        background-color: var(--primary-color-dark);
+        transform: translateY(-1px);
     }
-    .delete:hover {
-        background-color: rgb(255, 78, 78);
+    .delete:hover:not(:disabled) {
+        background-color: #b91c1c;
+        transform: translateY(-1px);
     }
 }
