@@ -1,8 +1,9 @@
 .settingsModal {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    max-width: 600px !important;
     width: 100%;
+    gap: 0;
 }
 
 .settingsModal h2 {
@@ -11,7 +12,7 @@
     color: white;
 }
 
-.section {
+.settingsModal section {
     display: flex;
     flex-direction: column;
     padding: 24px 0;
@@ -19,7 +20,7 @@
     gap: 16px;
 }
 
-.section:last-child {
+.settingsModal section:last-child {
     border-bottom: none;
 }
 

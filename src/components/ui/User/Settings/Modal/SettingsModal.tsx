@@ -24,25 +24,22 @@ export default function SettingsModal({
     return (
         <Modal
             onClose={onClose}
+            className={styles.settingsModal}
         >
-            <div className={styles.settingsModal}>
-                <h2>User Settings</h2>
-                <div className={styles.section}>
-                    <p className={styles.sectionTitle}>Profile Picture</p>
-                    <EditAvatar avatar={avatar} onAvatarUpdate={onAvatarUpdate} />
-                </div>
-                <div className={styles.section}>
-                    <p className={styles.sectionTitle}>Banner</p>
-                    <EditBanner banner={banner} onBannerUpdate={onBannerUpdate} />
-                </div>
-                <div className={styles.section}>
-                    <p className={styles.sectionTitle}>Account</p>
-                    <EditData />
-                </div>
-                <div className={styles.section}>
-                    <SignOutButton />
-                </div>
-            </div>
+            <h2>User Settings</h2>
+            <section>
+                <p className={styles.sectionTitle}>Profile Picture</p>
+                <EditAvatar avatar={avatar} onAvatarUpdate={onAvatarUpdate} />
+            </section>
+            <section>
+                <p className={styles.sectionTitle}>Banner</p>
+                <EditBanner banner={banner} onBannerUpdate={onBannerUpdate} />
+            </section>
+            <section>
+                <p className={styles.sectionTitle}>Account</p>
+                <EditData />
+            </section>
+            <SignOutButton />
         </Modal>
     )
 }
