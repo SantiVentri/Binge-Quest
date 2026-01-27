@@ -137,6 +137,8 @@ export default function ProfilePage() {
                                                     width={220}
                                                     alt="Game image"
                                                     draggable={false}
+                                                    unoptimized
+                                                    quality={100}
                                                 />
                                                 <span className={`${styles.medal} ${styles[`medal${index + 1}`]}`}>
                                                     {index + 1}

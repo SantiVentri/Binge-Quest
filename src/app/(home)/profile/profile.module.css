@@ -74,14 +74,19 @@
 .gameItem {
     position: relative;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--foreground-color);
     border-radius: 15px;
     width: 100%;
+    height: 128px;
+    padding: 6px;
     overflow: hidden;
 }
 
 .gameImage {
     height: 100%;
-    width: 100%;
+    width: auto;
     object-fit: cover;
 }
 
