@@ -2,6 +2,7 @@
 
 // Styles
 import styles from "./find-the-impostor.module.css";
+import gameStyles from "../games.module.css";
 
 // Hooks
 import { useEffect, useState } from "react"
@@ -105,22 +106,22 @@ export default function TriviaGamePage() {
 
     return (
         <main>
-            <Link href={"/games/find-the-impostor/levels"} className={styles.levelsIcon}>
+            <Link href={"/games/find-the-impostor/levels"} className={gameStyles.levelsIcon}>
                 <Grid2x2 size={25} color="white" />
             </Link>
             {todaysImpostor ? (
-                <div className={styles.container}>
+                <div className={gameStyles.container}>
                     {todaysImpostor.banner && (
                         <Banner image={todaysImpostor.banner} alt="Today's find the impostor banner" />
                     )}
-                    <form className={styles.form} onSubmit={handleSubmit}>
+                    <form className={gameStyles.form} onSubmit={handleSubmit}>
                         <QuestionImage image={todaysImpostor.image} alt="Today's find the impostor image" />
-                        <h1 className={styles.question}>Find the impostor: {todaysImpostor.title}</h1>
+                        <h1>Find the impostor: {todaysImpostor.title}</h1>
                         <div className={styles.optionsContainer}>
                             {todaysImpostor.options.map((option, index) => (
                                 <label
                                     key={index}
-                                    className={`${styles.optionButton} ${selectedOption === option ? styles.selected : ""} ${showAnswer ? option === todaysImpostor.answer ? styles.correct : styles.incorrect : ""}`}
+                                    className={`${styles.optionButton} ${selectedOption === option ? gameStyles.selected : ""} ${showAnswer ? option === todaysImpostor.answer ? gameStyles.correct : gameStyles.incorrect : ""}`}
                                 >
                                     <input
                                         type="radio"
@@ -138,8 +139,8 @@ export default function TriviaGamePage() {
                                 </label>
                             ))}
                         </div>
-                        <div className={styles.buttons}>
-                            <button type="submit" className={styles.submitButton} disabled={isLoading || !selectedOption}>
+                        <div className={gameStyles.buttons}>
+                            <button type="submit" className={gameStyles.submitButton} disabled={isLoading || !selectedOption}>
                                 {isLoading ? "Submitting..." : "Submit Answer"}
                             </button>
                         </div>

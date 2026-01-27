@@ -2,6 +2,7 @@
 
 // Styles
 import styles from "./guess-the-film.module.css";
+import gameStyles from "../games.module.css";
 
 // Hooks
 import { useEffect, useState, useRef } from "react"
@@ -43,6 +44,9 @@ export default function GuessTheFilmPage() {
     const [openFeedbackModal, setOpenFeedbackModal] = useState(false);
     const [openHasPlayedModal, setOpenHasPlayedModal] = useState(false);
 
+    // Input focus state
+    const [isFocused, setIsFocused] = useState(false);
+
     // Supabase client and user
     const supabase = createClient();
 
@@ -60,6 +64,14 @@ export default function GuessTheFilmPage() {
 
     const handleContainerClick = () => {
         inputRef.current?.focus();
+    }
+
+    const handleInputFocus = () => {
+        setIsFocused(true);
+    }
+
+    const handleInputBlur = () => {
+        setIsFocused(false);
     }
 
     const handleKeyClick = (key: string) => {
@@ -136,13 +148,13 @@ export default function GuessTheFilmPage() {
 
     return (
         <main>
-            <Link href={"/games/guess-the-film/levels"} className={styles.levelsIcon}>
+            <Link href={"/games/guess-the-film/levels"} className={gameStyles.levelsIcon}>
                 <Grid2x2 size={25} color="white" />
             </Link>
             {todaysGuessGame ? (
-                <div className={styles.container}>
+                <div className={gameStyles.container}>
                     {banner && <Banner image={banner} alt="Guess The Film Banner" />}
-                    <form className={styles.form} onSubmit={handleSubmit}>
+                    <form className={gameStyles.form} onSubmit={handleSubmit}>
                         <QuestionImage image={todaysGuessGame.image} alt="Today's trivia question image" />
                         <h1>Guess The Film</h1>
 
@@ -154,7 +166,7 @@ export default function GuessTheFilmPage() {
                                         <div key={wIdx} className={styles.word}>
                                             {word.split("").map((char, cIdx) => {
                                                 const currentLetter = selectedOption[charIndex] || "";
-                                                const isActive = charIndex === selectedOption.length && !showAnswer;
+                                                const isActive = charIndex === selectedOption.length && isFocused;
                                                 charIndex++;
                                                 return (
                                                     <div key={cIdx} className={`${styles.letterSlot} ${isActive ? styles.activeSlot : ""}`}>
@@ -164,7 +176,6 @@ export default function GuessTheFilmPage() {
                                             })}
                                         </div>
                                     );
-                                    // Space does not consume a character index
                                     return wordComponent;
                                 })
                             })()}
@@ -174,6 +185,8 @@ export default function GuessTheFilmPage() {
                                 className={styles.hiddenInput}
                                 value={selectedOption}
                                 onChange={handleInputChange}
+                                onFocus={handleInputFocus}
+                                onBlur={handleInputBlur}
                                 maxLength={todaysGuessGame.answer.replace(/\s/g, "").length}
                                 autoComplete="off"
                             />
@@ -196,8 +209,8 @@ export default function GuessTheFilmPage() {
                             ))}
                         </div>
 
-                        <div className={styles.buttons}>
-                            <button type="submit" className={styles.submitButton} disabled={isLoading || !selectedOption}>
+                        <div className={gameStyles.buttons}>
+                            <button type="submit" className={gameStyles.submitButton} disabled={isLoading || !selectedOption}>
                                 {isLoading ? "Submitting..." : "Submit Answer"}
                             </button>
                         </div>
@@ -222,7 +235,7 @@ export default function GuessTheFilmPage() {
                             correctAnswer={todaysGuessGame.answer}
                         />
                     )}
-                </div>
+                </div >
             ) : (
                 !isLoading && (
                     <EmptyListComponent />
