@@ -21,8 +21,9 @@ import { TriviaQuestion } from "@/types"
 import EmptyListComponent from "@/components/ui/EmptyListComponent/EmptyListComponent"
 import Banner from "@/components/ui/games/Banner/Banner";
 import QuestionImage from "@/components/ui/games/QuestionImage/QuestionImage";
-import Modal from "@/components/ui/Modal/Modal";
-import Image from "next/image";
+import SuccessModal from "@/components/ui/games/SuccessModal/SuccessModal";
+import FailureModal from "@/components/ui/games/FailureModal/FailureModal";
+import HasPlayedModal from "@/components/ui/games/HasPlayedModal/HasPlayedModal";
 import Link from "next/link";
 
 // Icons
@@ -45,11 +46,6 @@ export default function TriviaGamePage() {
     // Supabase client and user
     const supabase = createClient();
     const user = supabase.auth.getUser();
-
-    // Gifs
-    const successGif = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWc1b2ZoZDRpNG4xM2l2MG5weTcxcTFhZnpjdmgzcGN3cjliMm9xciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9EvnXdZaUZbCqScn67/giphy.gif";
-    const failureGif = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzZ6MHU0YjNjeWg4c2l4aHNmcHJtaHBlY3h1aGQzcDNmY2k3MW15OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1BQdjXovIqSLS/giphy.gif";
-    const hasPlayedGif = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc3NkdWVrM2d5aXNyczBveXUwMjVrcDk1OWk4NG55N3JzMTRoNmRkaSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/p7ESzgUi7li93Hxjte/giphy.gif";
 
     const handleSelection = (option: string) => {
         if (isLoading) return;
@@ -149,73 +145,24 @@ export default function TriviaGamePage() {
                         </div>
                     </form>
                     {openHasPlayedModal && (
-                        <Modal
-                            onClose={() => { }}
-                            className={styles.hasPlayedModal}
-                        >
-                            <div className={styles.modalContent}>
-                                <Image
-                                    src={hasPlayedGif}
-                                    width={460}
-                                    height={250}
-                                    alt={"Has Played Today Modal GIF"}
-                                    draggable={false}
-                                    unoptimized
-                                />
-                                <div className={styles.modalText}>
-                                    <h2 className={styles.successTitle}>You've already played today's trivia!</h2>
-                                    <p className={styles.modalMessage}>Come back tomorrow for a new question or checkout some of our other games in the home page!</p>
-                                </div>
-                                <div className={styles.buttons}>
-                                    <Link href={"/games/trivia-game/levels"} className={styles.button}>
-                                        See all levels
-                                    </Link>
-                                    <Link href={"/"} className={styles.button} style={{ backgroundColor: "#0E0E0E" }}>
-                                        See other games
-                                    </Link>
-                                </div>
-                            </div>
-                        </Modal>
+                        <HasPlayedModal gameSlug="trivia-game" />
                     )}
-                    {openFeedbackModal && (
-                        <Modal
+                    {openFeedbackModal && selectedOption === todaysTrivia.answer && (
+                        <SuccessModal
                             onClose={() => {
                                 setOpenFeedbackModal(false);
                                 setSelectedOption(null);
                             }}
-                            className={selectedOption === todaysTrivia.answer ? styles.modalSuccess : styles.modalFailure}
-                        >
-                            <div className={styles.modalContent}>
-                                <Image
-                                    src={selectedOption === todaysTrivia.answer ? successGif : failureGif}
-                                    alt={selectedOption === todaysTrivia.answer ? "Success" : "Failure"}
-                                    height={selectedOption === todaysTrivia.answer ? 360 : 220}
-                                    width={460}
-                                    unoptimized
-                                />
-                                <div className={styles.modalText}>
-                                    <h2 className={selectedOption === todaysTrivia.answer ? styles.successTitle : styles.failureTitle}>
-                                        {selectedOption === todaysTrivia.answer ? "Blockbuster Performance!" : "Plot Twist! Almost had it!"}
-                                    </h2>
-                                    <p className={styles.modalMessage}>
-                                        {selectedOption === todaysTrivia.answer
-                                            ? <>You nailed that scene! You're a true cinephile. <br /> Come back tomorrow for the sequel.</>
-                                            : <>The correct answer was <strong>&quot;{todaysTrivia.answer}&quot;</strong>. Don&apos;t worry, even the greats have off days. Catch you at the next screening!</>}
-                                    </p>
-                                </div>
-                                <div className={styles.buttons}>
-                                    <button
-                                        className={styles.button}
-                                        onClick={() => {
-                                            setOpenFeedbackModal(false);
-                                            setSelectedOption(null);
-                                        }}
-                                    >
-                                        Close
-                                    </button>
-                                </div>
-                            </div>
-                        </Modal>
+                        />
+                    )}
+                    {openFeedbackModal && selectedOption !== todaysTrivia.answer && (
+                        <FailureModal
+                            onClose={() => {
+                                setOpenFeedbackModal(false);
+                                setSelectedOption(null);
+                            }}
+                            correctAnswer={todaysTrivia.answer}
+                        />
                     )}
                 </div>
             ) : (

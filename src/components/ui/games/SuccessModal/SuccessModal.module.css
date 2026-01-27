@@ -1,0 +1,65 @@
+.modalSuccess {
+    z-index: 2000;
+    outline: 5px solid #28a745;
+}
+
+.modalContent {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+
+.modalContent img {
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.modalText {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.successTitle {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.modalMessage {
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    border: none;
+    border-radius: 6px;
+    background-color: #28a745;
+    color: white;
+    padding: 12px 24px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    text-decoration: none;
+}
+
+@media (hover:hover) {
+    .button:hover {
+        background-color: #218838;
+        transform: translateY(-2px);
+    }
+}
