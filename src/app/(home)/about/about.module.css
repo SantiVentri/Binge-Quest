@@ -1,0 +1,45 @@
+.page {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color);
+    border: 4px solid var(--primary-color);
+    border-radius: 25px;
+    margin: 80px 0;
+    padding: 30px;
+    width: 90%;
+    max-width: 1000px;
+    gap: 20px;
+
+    section {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    hr {
+        width: 100%;
+        border: 0;
+        border-top: 2px solid var(--foreground-color);
+    }
+
+    a {
+        font-weight: bold;
+        text-decoration: 1px solid underline;
+        text-underline-offset: 2px;
+    }
+
+    ol {
+        margin-left: 20px;
+    }
+
+    ol li::marker {
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+}
