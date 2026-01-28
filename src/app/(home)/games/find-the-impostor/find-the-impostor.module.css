@@ -23,6 +23,18 @@
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
+.optionButton span {
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    font-size: 14px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+
 @media (hover:hover) {
     .optionButton:not(:disabled):hover {
         filter: brightness(0.8);

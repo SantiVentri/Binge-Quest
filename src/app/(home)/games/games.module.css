@@ -80,14 +80,3 @@
     background-color: #f8d7da;
     color: black;
 }
-
-.optionButton span {
-    position: absolute;
-    top: -10px;
-    right: -5px;
-    font-size: 14px;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-}
