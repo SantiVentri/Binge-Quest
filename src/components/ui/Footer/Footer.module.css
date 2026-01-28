@@ -39,6 +39,12 @@
   height: 30px;
 }
 
+.footer a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .bgTitle {
   position: absolute;
   left: 0;
