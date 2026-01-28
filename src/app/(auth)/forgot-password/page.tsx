@@ -5,11 +5,10 @@ import { createClient } from "@/utils/supabase/client";
 import styles from "../auth.module.css";
 
 // Icons
-import { Eye, EyeOff, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 // Hooks
 import { useState } from "react";
-import Link from "next/link";
 
 export default function ForgotPasswordPage() {
     const [email, setEmail] = useState("");
