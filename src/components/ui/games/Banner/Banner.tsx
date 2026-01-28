@@ -15,7 +15,7 @@ export default function Banner({ image, alt, noGradient }: BannerProps) {
                 className={styles.banner}
                 width={1920}
                 height={250}
-                alt={alt as string | "Game Banner"}
+                alt={alt as string ?? "Game Banner"}
                 draggable={false}
                 priority
             />
