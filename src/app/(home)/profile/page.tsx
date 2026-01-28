@@ -33,7 +33,6 @@ export default function ProfilePage() {
     const [banner, setBanner] = useState<string>("");
 
     // Stats states
-    const [isLoadingStats, setIsLoadingStats] = useState<boolean>(true);
     const [topGames, setTopGames] = useState<any[]>([]);
     const [winRates, setWinRates] = useState<{ game: string; correct: number; total: number; winRate: number | null }[]>([]);
 
@@ -63,13 +62,11 @@ export default function ProfilePage() {
         const fetchStats = async () => {
             if (!user) return;
 
-            setIsLoadingStats(true);
             const top = await fetchUserTopGames(user.id);
             const rates = await fetchAllGamesWinRates(user.id);
 
             setTopGames(top);
             setWinRates(rates);
-            setIsLoadingStats(false);
         }
 
         if (!authLoading) {
@@ -120,38 +117,34 @@ export default function ProfilePage() {
                 </section>
                 <section className={styles.topGames}>
                     <h2>Top Played Games</h2>
-                    {isLoadingStats ? (
-                        <p>Loading...</p>
-                    ) : (
-                        <ul className={styles.gamesList}>
-                            {Array.from({ length: 3 }).map((_, index) => {
-                                const game = topGames[index];
-                                return (
-                                    <li key={index} className={styles.gameItem}>
-                                        {game ? (
-                                            <>
-                                                <Image
-                                                    className={styles.gameImage}
-                                                    src={`/images/games/${game.game}.png`}
-                                                    height={134}
-                                                    width={220}
-                                                    alt="Game image"
-                                                    draggable={false}
-                                                    unoptimized
-                                                    quality={100}
-                                                />
-                                                <span className={`${styles.medal} ${styles[`medal${index + 1}`]}`}>
-                                                    {index + 1}
-                                                </span>
-                                            </>
-                                        ) : (
-                                            <div className={styles.emptySlot}></div>
-                                        )}
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    )}
+                    <ul className={styles.gamesList}>
+                        {Array.from({ length: 3 }).map((_, index) => {
+                            const game = topGames[index];
+                            return (
+                                <li key={index} className={styles.gameItem}>
+                                    {game ? (
+                                        <>
+                                            <Image
+                                                className={styles.gameImage}
+                                                src={`/images/games/${game.game}.png`}
+                                                height={134}
+                                                width={220}
+                                                alt="Game image"
+                                                draggable={false}
+                                                unoptimized
+                                                quality={100}
+                                            />
+                                            <span className={`${styles.medal} ${styles[`medal${index + 1}`]}`}>
+                                                {index + 1}
+                                            </span>
+                                        </>
+                                    ) : (
+                                        <div className={styles.emptySlot}></div>
+                                    )}
+                                </li>
+                            )
+                        })}
+                    </ul>
                 </section>
                 <section className={styles.winRates}>
                     <div className={styles.ratesHeader}>
