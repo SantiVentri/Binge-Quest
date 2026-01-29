@@ -22,3 +22,14 @@
     height: 50%;
     background: linear-gradient(to top, var(--background-color), rgba(0, 0, 0, 0));
 }
+
+/* Mobile */
+@media (max-width: 768px) {
+    .gradient {
+        height: 70%;
+    }
+
+    .banner {
+        height: 200px;
+    }
+}

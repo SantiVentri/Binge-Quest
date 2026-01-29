@@ -87,11 +87,12 @@
     min-width: 60px;
 }
 
+/* Mobile */
 @media (max-width: 500px) {
     .keyboardKey {
         padding: 8px;
         min-width: 25px;
         height: 40px;
-        font-size: 14px;
+        font-size: 18px;
     }
 }

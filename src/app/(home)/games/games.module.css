@@ -62,7 +62,6 @@
     cursor: not-allowed;
 }
 
-/* Estilos para juegos con opciones (trivia y find-the-impostor) */
 .selected {
     background-color: var(--primary-color-dark) !important;
     outline: none !important;
@@ -79,4 +78,18 @@
     outline: 3px solid red;
     background-color: #f8d7da;
     color: black;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .form {
+        margin: 20px 10px;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .form h1 {
+        width: 90%;
+        font-size: 20px;
+    }
 }
