@@ -63,8 +63,7 @@ export default function EditBanner({
         setIsUploading(true);
 
         const fileExt = file.name.split(".").pop()?.toLowerCase() || "jpg";
-        const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${fileExt}`;
-        const filePath = `${user.id}/banner/${fileName}`;
+        const filePath = `${user.id}/banner.${fileExt}`;
 
         const { error: uploadError } = await supabase
             .storage
