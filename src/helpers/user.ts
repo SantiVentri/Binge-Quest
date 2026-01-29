@@ -16,8 +16,8 @@ export async function hasPlayedToday({ game }: Pick<GameSessionProps, "game">) {
         .select("id")
         .eq("user_id", user.id)
         .eq("game", game)
-        .gte("game_date", startOfDay)
-        .lt("game_date", endOfDay)
+        .gte("played_at", startOfDay)
+        .lt("played_at", endOfDay)
         .maybeSingle();
 
     if (error) {
