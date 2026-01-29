@@ -106,7 +106,7 @@ export default function TriviaGamePage() {
 
     return (
         <main>
-            <Link href={"/games/trivia-game/levels"} className={gameStyles.levelsIcon}>
+            <Link href={"/games/levels/trivia-game"} className={gameStyles.levelsIcon}>
                 <Grid2x2 size={25} color="white" />
             </Link>
             {todaysTrivia ? (

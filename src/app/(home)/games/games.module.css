@@ -8,6 +8,9 @@
 
 .levelsIcon {
     position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     top: 20px;
     right: 20px;
     background-color: var(--background-color);

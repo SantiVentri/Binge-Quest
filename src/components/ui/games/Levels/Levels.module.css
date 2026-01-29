@@ -1,0 +1,32 @@
+.levelsGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.levelCard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 4px solid var(--primary-color);
+    border-radius: 15px;
+    height: 80px;
+    width: 80px;
+    font-size: 30px;
+    font-weight: bold;
+    transition: all 0.2s;    
+}
+
+.levelCard:hover {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    cursor: pointer;
+}
+
+.emptyContainer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
