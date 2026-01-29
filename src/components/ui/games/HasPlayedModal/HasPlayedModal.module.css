@@ -62,3 +62,30 @@
         transform: translateY(-2px);
     }
 }
+
+/* Mobile */
+@media (max-width: 600px) {
+    .hasPlayedModal {
+        border-radius: 15px;
+        padding: 15px;
+        width: 98%;
+    }
+
+    .modalContent img {
+        height: 180px;
+        width: 100%;
+    } 
+
+    .title {
+        font-size: 18px;
+    }
+
+    .modalMessage {
+        font-size: 14px;
+    }
+
+    .button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+}

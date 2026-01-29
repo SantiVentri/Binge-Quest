@@ -15,7 +15,7 @@ export default function SuccessModal({
     const successGif = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWc1b2ZoZDRpNG4xM2l2MG5weTcxcTFhZnpjdmgzcGN3cjliMm9xciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9EvnXdZaUZbCqScn67/giphy.gif";
 
     return (
-        <Modal onClose={onClose} className={styles.modalSuccess}>
+        <Modal onClose={onClose} className={styles.successModal}>
             <div className={styles.modalContent}>
                 <Image
                     src={successGif}

@@ -17,7 +17,7 @@ export default function FailureModal({
     const failureGif = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzZ6MHU0YjNjeWg4c2l4aHNmcHJtaHBlY3h1aGQzcDNmY2k3MW15OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1BQdjXovIqSLS/giphy.gif";
 
     return (
-        <Modal onClose={onClose} className={styles.modalFailure}>
+        <Modal onClose={onClose} className={styles.failureModal}>
             <div className={styles.modalContent}>
                 <Image
                     src={failureGif}

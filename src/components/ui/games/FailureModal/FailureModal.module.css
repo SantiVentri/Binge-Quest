@@ -1,4 +1,4 @@
-.modalFailure {
+.failureModal {
     z-index: 2000;
     outline: 5px solid #dc3545;
 }
@@ -7,8 +7,8 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 20px;
     text-align: center;
+    gap: 20px;
 }
 
 .modalContent img {
@@ -61,5 +61,32 @@
     .button:hover {
         background-color: #c82333;
         transform: translateY(-2px);
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .failureModal {
+        border-radius: 15px;
+        padding: 15px;
+        width: 95%;
+    }
+
+    .modalContent img {
+        height: 180px;
+        width: 100%;
+    } 
+
+    .failureTitle {
+        font-size: 22px;
+    }
+
+    .modalMessage {
+        font-size: 16px;
+    }
+
+    .button {
+        font-size: 16px;
+        padding: 10px 20px;
     }
 }
