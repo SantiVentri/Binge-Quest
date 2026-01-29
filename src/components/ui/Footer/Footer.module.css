@@ -58,3 +58,26 @@
   line-height: 45%;
   z-index: 0;
 }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .footer {
+    height: 320px;
+  }
+
+  .footer .container {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    gap: 30px;
+  }
+
+  .footer nav {
+    gap: 20px;
+  }
+
+  .bgTitle {
+    font-size: 55px;
+    text-wrap: nowrap;
+  }
+}
