@@ -181,3 +181,36 @@
     text-align: right;
     width: 60px;
 }
+
+/* Mobile */
+@media (max-width: 600px) {
+    .container {
+        margin-top: 50px;
+    }
+
+    .avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    .gamesList {
+        justify-content: flex-start;
+        align-items: flex-start;
+        overflow-x: scroll;
+        flex-wrap: nowrap;
+    }
+
+    .gameItem {
+        height: 150px;
+        width: 220px;
+        flex-shrink: 0;
+    }
+
+    .rateItem h3 {
+        font-size: 16px;
+        max-width: 160px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

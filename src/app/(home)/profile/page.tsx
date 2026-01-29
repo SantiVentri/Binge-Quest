@@ -10,7 +10,6 @@ import { useAuth } from "@/context/AuthContext";
 
 // Components
 import Image from "next/image";
-import Link from "next/link";
 import Banner from "@/components/ui/games/Banner/Banner";
 
 // Icons
