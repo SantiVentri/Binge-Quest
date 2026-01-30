@@ -45,7 +45,6 @@ export default function GameLevels({ game }: { game: string }) {
         }
 
         setLevels(data as []);
-        setIsLoading(false);
 
         // Check which levels have been played
         const played = new Set<string>();
@@ -56,6 +55,7 @@ export default function GameLevels({ game }: { game: string }) {
             }
         }
         setPlayedLevels(played);
+        setIsLoading(false);
     }
 
     useEffect(() => {
@@ -70,7 +70,7 @@ export default function GameLevels({ game }: { game: string }) {
                         key={index}
                         className={styles.levelCard}
                         onClick={() => router.push(`/games/levels/${game.replace(/_/g, '-')}/${level.release_at}`)}
-                        disabled={playedLevels.has(level.release_at)}
+                        disabled={isLoading || playedLevels.has(level.release_at)}
                     >
                         {index + 1}
                     </button>

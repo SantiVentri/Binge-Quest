@@ -46,3 +46,11 @@
     height: 80px;
     width: 80px;
 }
+
+/* Mobile */
+@media (max-width: 600px) {
+    .levelsGrid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+}
