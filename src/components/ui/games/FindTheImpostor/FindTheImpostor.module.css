@@ -34,15 +34,10 @@
     border-radius: 5px;
 }
 
-
 @media (hover:hover) {
     .optionButton:not(:disabled):hover {
         filter: brightness(0.8);
     }
-}
-
-.modalFailure .button:hover {
-    background-color: #c82333 !important;
 }
 
 /* Mobile */

@@ -1,5 +1,5 @@
 // Styles
-import styles from "./game.module.css";
+import styles from "./levels.module.css";
 
 // Hooks
 import { notFound } from "next/navigation";
@@ -9,7 +9,6 @@ import Banner from "@/components/ui/games/Banner/Banner";
 import GameLevels from "@/components/ui/games/Levels/Levels";
 
 export default async function GameLevelsPage({ params }: { params: Promise<{ game: string }> }) {
-
     // Extract Params
     const { game } = await params;
     const properGameName = game.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());

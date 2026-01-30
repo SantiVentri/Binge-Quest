@@ -31,7 +31,7 @@ export default function HasPlayedModal({
                     <p className={styles.modalMessage}>Come back tomorrow for a new question or checkout some of our other games in the home page!</p>
                 </div>
                 <div className={styles.buttons}>
-                    <Link href={`/games/levels/${gameSlug}`} className={styles.button}>
+                    <Link href={`/games/${gameSlug}/levels`} className={styles.button}>
                         See all levels
                     </Link>
                     <Link href="/" className={styles.button} style={{ backgroundColor: "#0E0E0E" }}>
