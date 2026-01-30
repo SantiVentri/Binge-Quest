@@ -4,11 +4,13 @@ import { createClient } from "@/utils/supabase/client";
 import { GameSessionProps } from "@/types";
 import { hasPlayedToday } from "./user";
 
+// Get Local Date String
 export function getLocalDateString() {
   const d = new Date();
   return d.toLocaleDateString("en-US"); // YYYY-MM-DD
 }
 
+// Submit Game Session
 export async function submitGame({ user_id, game, game_date, is_correct }: GameSessionProps) {
     const supabase = createClient();
 
@@ -43,4 +45,26 @@ export async function fetchTodaysGame({ game }: Pick<GameSessionProps, "game">) 
 
   if (error) throw error;
   return data ?? null;
+}
+
+// Check if level was played
+export async function hasPlayedGame({ game, game_date }: Pick<GameSessionProps, "game" | "game_date">) {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) return false;
+
+  const { data, error } = await supabase
+    .from("game_sessions")
+    .select("id")
+    .eq("user_id", user.id)
+    .eq("game", game)
+    .eq("game_date", game_date)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Error checking game session:", error);
+    return false;
+  }
+  return !!data;
 }
