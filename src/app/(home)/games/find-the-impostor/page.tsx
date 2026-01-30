@@ -106,7 +106,7 @@ export default function TriviaGamePage() {
 
     return (
         <main>
-            <Link href={"/games/find-the-impostor/levels"} className={gameStyles.levelsIcon}>
+            <Link href={"/games/levels/find-the-impostor"} className={gameStyles.levelsIcon}>
                 <Grid2x2 size={25} color="white" />
             </Link>
             {todaysImpostor ? (

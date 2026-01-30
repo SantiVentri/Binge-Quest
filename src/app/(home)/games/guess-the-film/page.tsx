@@ -148,7 +148,7 @@ export default function GuessTheFilmPage() {
 
     return (
         <main>
-            <Link href={"/games/guess-the-film/levels"} className={gameStyles.levelsIcon}>
+            <Link href={"/games/levels/guess-the-film"} className={gameStyles.levelsIcon}>
                 <Grid2x2 size={25} color="white" />
             </Link>
             {todaysGuessGame ? (
