@@ -69,7 +69,7 @@ export default function GameLevels({ game }: { game: string }) {
                     <button
                         key={index}
                         className={styles.levelCard}
-                        onClick={() => router.push(`/games/levels/${game.replace(/_/g, '-')}/${level.release_at}`)}
+                        onClick={() => router.push(`/games/${game.replace(/_/g, '-')}/levels/${level.release_at}`)}
                         disabled={isLoading || playedLevels.has(level.release_at)}
                     >
                         {index + 1}

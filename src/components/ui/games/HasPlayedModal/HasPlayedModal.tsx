@@ -27,7 +27,7 @@ export default function HasPlayedModal({
                     unoptimized
                 />
                 <div className={styles.modalText}>
-                    <h2 className={styles.title}>You've already played today's trivia!</h2>
+                    <h2 className={styles.title}>You've already played today's game!</h2>
                     <p className={styles.modalMessage}>Come back tomorrow for a new question or checkout some of our other games in the home page!</p>
                 </div>
                 <div className={styles.buttons}>

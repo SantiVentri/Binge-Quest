@@ -47,6 +47,18 @@ export async function fetchTodaysGame({ game }: Pick<GameSessionProps, "game">) 
   return data ?? null;
 }
 
+export async function fetchGameByDate({ game, game_date }: Pick<GameSessionProps, "game" | "game_date">) {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from(game)
+    .select("*")
+    .eq("release_at", game_date)
+    .maybeSingle();
+
+  if (error) throw error;
+  return data ?? null;
+}
+
 // Check if level was played
 export async function hasPlayedGame({ game, game_date }: Pick<GameSessionProps, "game" | "game_date">) {
   const supabase = createClient();
