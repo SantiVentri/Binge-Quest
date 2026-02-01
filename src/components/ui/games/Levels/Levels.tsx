@@ -46,15 +46,27 @@ export default function GameLevels({ game }: { game: string }) {
 
         setLevels(data as []);
 
-        // Check which levels have been played
-        const played = new Set<string>();
-        for (const level of data as any[]) {
-            const hasPlayed = await hasPlayedGame({ game: game as GameSessionProps["game"], game_date: level.release_at });
-            if (hasPlayed) {
-                played.add(level.release_at);
-            }
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+            setPlayedLevels(new Set());
+            setIsLoading(false);
+            return;
         }
-        setPlayedLevels(played);
+
+        const { data: sessions, error: sessionsError } = await supabase
+            .from("game_sessions")
+            .select("game_date")
+            .eq("user_id", user.id)
+            .eq("game", game);
+
+        if (sessionsError) {
+            console.error("Error fetching game sessions:", sessionsError);
+            setPlayedLevels(new Set());
+        } else {
+            const played = new Set<string>(sessions?.map((s: any) => s.game_date) ?? []);
+            setPlayedLevels(played);
+        }
+
         setIsLoading(false);
     }
 

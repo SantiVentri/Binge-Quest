@@ -12,9 +12,8 @@ import Link from "next/link";
 import { Grid2x2 } from "lucide-react";
 
 // Helpers
-import { fetchTodaysGame } from "@/helpers/games";
+import { fetchGameByDate, hasPlayedGame } from "@/helpers/games";
 import { submitGame } from "@/helpers/games";
-import { hasPlayedToday } from "@/helpers/user";
 
 // Utils
 import { createClient } from "@/utils/supabase/client";
@@ -30,6 +29,7 @@ import GuessTheFilmGame from "@/components/ui/games/GuessTheFilm/GuessTheFilm";
 import SuccessModal from "@/components/ui/games/SuccessModal/SuccessModal";
 import FailureModal from "@/components/ui/games/FailureModal/FailureModal";
 import HasPlayedModal from "@/components/ui/games/HasPlayedModal/HasPlayedModal";
+import { useToast } from "@/context/ToastContext";
 
 export default function GamePage({ params }: { params: Promise<{ game: string }> }) {
     // Extract Params
@@ -51,6 +51,12 @@ export default function GamePage({ params }: { params: Promise<{ game: string }>
 
     // Supabase client
     const supabase = createClient();
+
+    // Toast
+    const Toast = useToast();
+
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
 
     useEffect(() => {
         params.then(({ game: gameParam }) => {
@@ -97,12 +103,12 @@ export default function GamePage({ params }: { params: Promise<{ game: string }>
             await submitGame({
                 user_id: user.id,
                 game: dbGameName,
-                game_date: new Date().toISOString(),
+                game_date: gameData?.release_at as string,
                 is_correct: isCorrect
             });
             setShowAnswer(true);
         } catch {
-            alert("There was an error submitting your answer. Please try again.");
+            Toast.showToast("There was an error submitting your answer.", "error");
         } finally {
             setOpenFeedbackModal(true);
             checkPlayed();
@@ -113,7 +119,7 @@ export default function GamePage({ params }: { params: Promise<{ game: string }>
     const loadGame = async () => {
         if (!game) return;
         try {
-            const data = await fetchTodaysGame({ game: dbGameName });
+            const data = await fetchGameByDate({ game: dbGameName, game_date: today });
             setGameData(data || null);
         } catch {
             setError(true);
@@ -124,7 +130,7 @@ export default function GamePage({ params }: { params: Promise<{ game: string }>
 
     const checkPlayed = async () => {
         if (!game) return;
-        const played = await hasPlayedToday({ game: dbGameName });
+        const played = await hasPlayedGame({ game: dbGameName, game_date: today });
         if (played) {
             setOpenHasPlayedModal(true);
             setShowAnswer(true);

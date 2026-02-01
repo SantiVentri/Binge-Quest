@@ -12,9 +12,9 @@ import Link from "next/link";
 import { Grid2x2 } from "lucide-react";
 
 // Helpers
-import { fetchGameByDate, fetchTodaysGame } from "@/helpers/games";
+import { fetchGameByDate } from "@/helpers/games";
 import { submitGame } from "@/helpers/games";
-import { hasPlayedToday } from "@/helpers/user";
+import { hasPlayedGame } from "@/helpers/games";
 
 // Utils
 import { createClient } from "@/utils/supabase/client";
@@ -107,7 +107,7 @@ export default function GamePage({ params }: { params: Promise<{ game: string; g
             await submitGame({
                 user_id: user.id,
                 game: dbGameName,
-                game_date: new Date().toISOString(),
+                game_date: gameData?.release_at as string,
                 is_correct: isCorrect
             });
             setShowAnswer(true);
@@ -133,8 +133,8 @@ export default function GamePage({ params }: { params: Promise<{ game: string; g
     };
 
     const checkPlayed = async () => {
-        if (!game) return;
-        const played = await hasPlayedToday({ game: dbGameName });
+        if (!game || !gameLevel) return;
+        const played = await hasPlayedGame({ game: dbGameName, game_date: gameLevel });
         if (played) {
             setOpenHasPlayedModal(true);
             setShowAnswer(true);

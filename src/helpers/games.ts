@@ -2,7 +2,6 @@ import { createClient } from "@/utils/supabase/client";
 
 // Types
 import { GameSessionProps } from "@/types";
-import { hasPlayedToday } from "./user";
 
 // Get Local Date String
 export function getLocalDateString() {
@@ -14,10 +13,10 @@ export function getLocalDateString() {
 export async function submitGame({ user_id, game, game_date, is_correct }: GameSessionProps) {
     const supabase = createClient();
 
-    const hasPlayed = await hasPlayedToday({ game });
+    const hasPlayed = await hasPlayedGame({ game, game_date });
 
     if (hasPlayed) {
-      throw new Error("User has already played today");
+      throw new Error("User has already played this level");
     }
 
     const { data, error } = await supabase
@@ -33,20 +32,6 @@ export async function submitGame({ user_id, game, game_date, is_correct }: GameS
 }
 
 // Fetch Games
-export async function fetchTodaysGame({ game }: Pick<GameSessionProps, "game">) {
-  const supabase = createClient();
-  const today = getLocalDateString();
-
-  const { data, error } = await supabase
-    .from(game)
-    .select("*")
-    .eq("release_at", today)
-    .maybeSingle();
-
-  if (error) throw error;
-  return data ?? null;
-}
-
 export async function fetchGameByDate({ game, game_date }: Pick<GameSessionProps, "game" | "game_date">) {
   const supabase = createClient();
   const { data, error } = await supabase
