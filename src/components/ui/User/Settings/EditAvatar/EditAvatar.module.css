@@ -1,0 +1,60 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.avatar {
+    border-radius: 50%;
+    border: 3px solid rgba(52, 84, 209, 0.3);
+    object-fit: cover;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: none;
+    padding: 10px 14px;
+    font-weight: 600;
+    font-size: 13px;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.upload {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.delete {
+    background-color: #dc2626;
+    color: white;
+    border: none;
+}
+
+.upload:disabled,
+.delete:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (hover:hover) {
+    .upload:hover:not(:disabled) {
+        background-color: var(--primary-color-dark);
+        transform: translateY(-1px);
+    }
+    .delete:hover:not(:disabled) {
+        background-color: #b91c1c;
+        transform: translateY(-1px);
+    }
+}

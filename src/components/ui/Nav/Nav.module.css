@@ -16,3 +16,10 @@
   display: flex;
   gap: 20px;
 }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .nav li:nth-child(1) {
+    display: none;
+  }
+}

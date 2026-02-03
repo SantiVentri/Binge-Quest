@@ -1,0 +1,217 @@
+.profilePage {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 92vh;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--foreground-color);
+    border-radius: 20px;
+    margin-top: 90px;
+    margin-bottom: 40px;
+    padding: 20px;
+    max-width: 800px;
+    width: 90%;
+    gap: 20px;
+}
+
+.settingsIcon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background-color);
+    border: none;
+    border-radius: 50%;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.userData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 10px;
+    gap: 15px;
+}
+
+.avatar {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Stats section */
+
+/* Top Games */
+.topGames {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #474473;
+    border-radius: 15px;
+    padding: 20px;
+    gap: 10px;
+}
+
+.topGames h2 {
+    font-size: 20px;
+}
+
+.gamesList {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.gameItem {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--foreground-color);
+    border-radius: 15px;
+    width: 100%;
+    height: 128px;
+    padding: 6px;
+    overflow: hidden;
+}
+
+.gameImage {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+}
+
+.medal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.medal1 {
+    background-color: #D4AF37;
+    color: #735A0C;
+}
+
+.medal2 {
+    background-color: #ffffff;
+    color: #646464;
+}
+
+.medal3 {
+    background-color: #CD7F32;
+    color: #5A2F04;
+}
+
+.emptySlot {
+    width: 100%;
+    height: 134px;
+    background-color: var(--foreground-color);
+    border-radius: 15px;
+}
+
+/* Rates */
+.winRates {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.ratesList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+}
+
+.rateItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #474473;
+    border-radius: 15px;
+    padding: 15px 20px;
+    width: 100%;
+}
+
+.data {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.ratesHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 20px;
+    font-weight: bold;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.headerData {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.data .rate {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: right;
+    width: 60px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .container {
+        margin-top: 50px;
+    }
+
+    .avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    .gamesList {
+        justify-content: flex-start;
+        align-items: flex-start;
+        overflow-x: scroll;
+        flex-wrap: nowrap;
+    }
+
+    .gameItem {
+        height: 150px;
+        width: 220px;
+        flex-shrink: 0;
+    }
+
+    .rateItem h3 {
+        font-size: 16px;
+        max-width: 160px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

@@ -1,0 +1,98 @@
+.inputContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 20px;
+    cursor: text;
+}
+
+.word {
+    display: flex;
+    margin-right: 12px;
+    gap: 4px;
+}
+
+.letterSlot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 4px solid white;
+    width: 30px;
+    height: 40px;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: border-bottom-color 0.2s ease, transform 0.2s ease;
+}
+
+.activeSlot {
+    border-bottom-color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.hiddenInput {
+    position: absolute;
+    height: 0;
+    width: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.keyboardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 20px;
+}
+
+.keyboardRow {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.keyboardKey {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    min-width: 40px;
+    height: 55px;
+    font-size: 20px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background-color 0.1s;
+    text-transform: uppercase;
+    user-select: none;
+}
+
+.keyboardKey:active {
+    background-color: #e5e5e5;
+}
+
+@media (hover:hover) {
+    .keyboardKey:hover {
+        background-color: #d1d5db;
+    }
+}
+
+.specialKey {
+    min-width: 60px;
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+    .keyboardKey {
+        padding: 8px;
+        min-width: 25px;
+        height: 40px;
+        font-size: 18px;
+    }
+}

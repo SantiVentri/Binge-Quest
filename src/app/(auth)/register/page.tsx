@@ -10,6 +10,9 @@ import { Eye, EyeOff, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+// Context
+import { useToast } from "@/context/ToastContext";
+
 // Utils
 import { createClient } from "@/utils/supabase/client";
 
@@ -26,6 +29,7 @@ export default function RegisterPage() {
 
   const supabase = createClient();
   const router = useRouter();
+  const Toast = useToast();
 
   const isEmailValid = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -44,7 +48,7 @@ export default function RegisterPage() {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage("");
@@ -74,15 +78,23 @@ export default function RegisterPage() {
         },
       });
 
+      if (error) {
+        Toast.showToast(`Registration error: ${error.message}`, "error");
+        return;
+      }
+
+      Toast.showToast("Registration successful!", "success");
+
       router.push("/signin");
-    } catch (error) {
+    } catch (err) {
       setErrorMessage("An unexpected error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
+
   };
 
-  const handleReset = (e?: any) => {
+  const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setUsername("");
     setEmail("");
@@ -110,7 +122,8 @@ export default function RegisterPage() {
               name="username"
               value={username}
               onChange={(e) => {
-                setUsername(e.target.value), setErrorMessage("");
+                setUsername(e.target.value.trim());
+                setErrorMessage("");
               }}
               placeholder="JohnDoe"
               required
@@ -124,7 +137,8 @@ export default function RegisterPage() {
               name="email"
               value={email}
               onChange={(e) => {
-                setEmail(e.target.value), setErrorMessage("");
+                setEmail(e.target.value.trim());
+                setErrorMessage("");
               }}
               placeholder="johndoe@example.com"
               required
@@ -139,7 +153,8 @@ export default function RegisterPage() {
                 name="password"
                 value={password}
                 onChange={(e) => {
-                  setPassword(e.target.value), setErrorMessage("");
+                  setPassword(e.target.value.trim());
+                  setErrorMessage("");
                 }}
                 placeholder={showPassword ? "john123" : "*******"}
                 required
@@ -157,7 +172,7 @@ export default function RegisterPage() {
             <div className={styles.errorMessage}>{errorMessage}</div>
           )}
           <div className={styles.buttons}>
-            <button type="submit" className={styles.submitButton}>
+            <button type="submit" className={styles.submitButton} disabled={isLoading}>
               {isLoading ? "Creating account..." : "Register"}
             </button>
             <button type="reset" className={styles.resetButton}>

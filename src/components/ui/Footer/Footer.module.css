@@ -27,7 +27,22 @@
 .footer nav ul {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+}
+
+.footer nav h4 {
+  margin-bottom: 4px;
+}
+
+.footer nav li {
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
+.footer a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .bgTitle {
@@ -42,4 +57,27 @@
   font-weight: 900;
   line-height: 45%;
   z-index: 0;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .footer {
+    height: 320px;
+  }
+
+  .footer .container {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    gap: 30px;
+  }
+
+  .footer nav {
+    gap: 20px;
+  }
+
+  .bgTitle {
+    font-size: 55px;
+    text-wrap: nowrap;
+  }
 }

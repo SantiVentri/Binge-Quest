@@ -1,0 +1,49 @@
+.page {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.levelsIcon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 20px;
+    right: 20px;
+    background-color: var(--background-color);
+    border-radius: 50%;
+    padding: 10px;
+    z-index: 3000;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color);
+    border: 4px solid var(--primary-color);
+    border-radius: 20px;
+    margin-top: 70px;
+    margin-bottom: 40px;
+    padding: 25px;
+    max-width: 650px;
+    gap: 30px;
+}
+
+.titles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    h1 {
+        font-size: 30px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+}

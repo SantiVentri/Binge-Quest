@@ -1,0 +1,12 @@
+.image {
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .image {
+        width: 100%;
+        height: auto;
+    }
+}

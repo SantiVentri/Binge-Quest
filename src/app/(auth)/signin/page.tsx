@@ -9,6 +9,9 @@ import { Eye, EyeOff, Trash2 } from "lucide-react";
 // Hooks
 import { useState } from "react";
 
+// Context
+import { useToast } from "@/context/ToastContext";
+
 // Utils
 import { createClient } from "@/utils/supabase/client";
 
@@ -20,19 +23,19 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
 
   const supabase = createClient();
+  const Toast = useToast();
 
-  const handleShowPassword = (e: any) => {
+  const handleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    setErrorMessage("");
+
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -41,18 +44,20 @@ export default function SignInPage() {
     setIsLoading(false);
 
     if (error) {
-      setErrorMessage(error.message);
+      Toast.showToast(`Error signing in: ${error.message}`, "error");
     } else {
       handleReset(e);
-      window.location.href = "/";
+      Toast.showToast("Signed in successfully!", "success");
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1500);
     }
   };
 
-  const handleReset = (e?: any) => {
+  const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setEmail("");
     setPassword("");
-    setErrorMessage("");
   };
 
   return (
@@ -75,7 +80,7 @@ export default function SignInPage() {
               name="email"
               value={email}
               onChange={(e) => {
-                setEmail(e.target.value), setErrorMessage("");
+                setEmail(e.target.value);
               }}
               placeholder="johndoe@example.com"
               required
@@ -93,7 +98,7 @@ export default function SignInPage() {
                 name="password"
                 value={password}
                 onChange={(e) => {
-                  setPassword(e.target.value), setErrorMessage("");
+                  setPassword(e.target.value);
                 }}
                 placeholder={showPassword ? "john123" : "*******"}
                 required
@@ -107,14 +112,11 @@ export default function SignInPage() {
               </button>
             </div>
           </div>
-          {errorMessage && (
-            <div className={styles.errorMessage}>{errorMessage}</div>
-          )}
           <div className={styles.buttons}>
-            <button type="submit" className={styles.submitButton}>
+            <button type="submit" className={styles.submitButton} disabled={isLoading}>
               {isLoading ? "Accessing account..." : "Log in"}
             </button>
-            <button type="reset" className={styles.resetButton}>
+            <button type="reset" className={styles.resetButton} disabled={isLoading}>
               <Trash2 />
             </button>
           </div>

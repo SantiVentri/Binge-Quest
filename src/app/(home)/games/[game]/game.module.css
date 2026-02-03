@@ -1,0 +1,298 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+}
+
+.levelsIcon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 20px;
+    right: 20px;
+    background-color: var(--background-color);
+    border-radius: 50%;
+    padding: 10px;
+    z-index: 3000;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--foreground-color);
+    border-radius: 25px;
+    margin: 40px 0;
+    padding: 20px;
+    gap: 20px;
+}
+
+.form h1 {
+    text-align: center;
+    text-wrap: wrap;
+    width: 550px;
+    font-size: 24px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.submitButton {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submitButton:hover {
+    background-color: var(--primary-color-dark);
+}
+
+.submitButton:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+.selected {
+    background-color: var(--primary-color-dark) !important;
+    outline: none !important;
+    color: white !important;
+}
+
+.correct {
+    outline: 3px solid green !important;
+    background-color: #d4edda !important;
+    color: black !important;
+}
+
+.incorrect {
+    outline: 3px solid red;
+    background-color: #f8d7da;
+    color: black;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .form {
+        margin: 20px 10px;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .form h1 {
+        width: 90%;
+        font-size: 20px;
+    }
+}
+
+/* Trivia specific styles */
+.optionsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+}
+
+.optionButton {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    padding: 10px 15px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+@media (hover:hover) {
+    .optionButton:not(:disabled):hover {
+        filter: brightness(0.8);
+    }
+}
+
+.optionButton span {
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    font-size: 14px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* Guess The Film specific styles */
+.inputContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 20px;
+    cursor: text;
+}
+
+.word {
+    display: flex;
+    margin-right: 12px;
+    gap: 4px;
+}
+
+.letterSlot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 4px solid white;
+    width: 30px;
+    height: 40px;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: border-bottom-color 0.2s ease, transform 0.2s ease;
+}
+
+.activeSlot {
+    border-bottom-color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.hiddenInput {
+    position: absolute;
+    height: 0;
+    width: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.keyboardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 20px;
+}
+
+.keyboardRow {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.keyboardKey {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    min-width: 40px;
+    height: 55px;
+    font-size: 20px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background-color 0.1s;
+    text-transform: uppercase;
+    user-select: none;
+}
+
+.keyboardKey:active {
+    background-color: #e5e5e5;
+}
+
+@media (hover:hover) {
+    .keyboardKey:hover {
+        background-color: #d1d5db;
+    }
+}
+
+.specialKey {
+    min-width: 60px;
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+    .keyboardKey {
+        padding: 8px;
+        min-width: 25px;
+        height: 40px;
+        font-size: 18px;
+    }
+}
+
+/* Find The Impostor specific styles */
+.optionsContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 550px;
+    width: 100%;
+    gap: 15px;
+}
+
+.optionButton {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    padding: 10px 15px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.optionButton span {
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    font-size: 14px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+
+@media (hover:hover) {
+    .optionButton:not(:disabled):hover {
+        filter: brightness(0.8);
+    }
+}
+
+.modalFailure .button:hover {
+    background-color: #c82333 !important;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .optionsContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .optionButton {
+        font-size: 16px;
+        height: 80px;
+    }
+}

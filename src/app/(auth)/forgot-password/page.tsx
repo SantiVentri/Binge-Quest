@@ -1,15 +1,19 @@
 "use client";
 
-import { createClient } from "@/utils/supabase/client";
 // Styles
 import styles from "../auth.module.css";
 
 // Icons
-import { Eye, EyeOff, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 // Hooks
 import { useState } from "react";
-import Link from "next/link";
+
+// Context
+import { useToast } from "@/context/ToastContext";
+
+// Utils
+import { createClient } from "@/utils/supabase/client";
 
 export default function ForgotPasswordPage() {
     const [email, setEmail] = useState("");
@@ -17,9 +21,22 @@ export default function ForgotPasswordPage() {
     const [errorMessage, setErrorMessage] = useState("");
 
     const supabase = createClient();
+    const Toast = useToast();
 
-    const handleSubmit = async (e: any) => {
+    const isEmailValid = (email: string) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (!isEmailValid(email)) {
+            setErrorMessage("Please enter a valid email address.");
+            setIsLoading(false);
+            return;
+        }
+
         setIsLoading(true);
         setErrorMessage("");
         const { error } = await supabase.auth.resetPasswordForEmail(email);
@@ -27,14 +44,17 @@ export default function ForgotPasswordPage() {
         setIsLoading(false);
 
         if (error) {
-            setErrorMessage(error.message);
+            Toast.showToast(`Error sending email: ${error.message}`, "error");
         } else {
+            Toast.showToast("Reset email sent successfully! Check your inbox.", "success");
             handleReset(e);
-            window.location.href = "/signin";
+            setTimeout(() => {
+                window.location.href = "/signin";
+            }, 2500);
         }
     }
 
-    const handleReset = (e?: any) => {
+    const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setEmail("");
         setErrorMessage("");
@@ -60,8 +80,8 @@ export default function ForgotPasswordPage() {
                             name="email"
                             value={email}
                             onChange={(e) => {
-                                setEmail(e.target.value),
-                                    setErrorMessage("");
+                                setEmail(e.target.value);
+                                setErrorMessage("");
                             }}
                             placeholder="johndoe@example.com"
                             required
@@ -76,6 +96,7 @@ export default function ForgotPasswordPage() {
                         <button
                             type="submit"
                             className={styles.submitButton}
+                            disabled={isLoading}
                         >
                             {isLoading ? "Sending mail..." : "Send mail"}
                         </button>

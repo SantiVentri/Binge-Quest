@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 Binge Quest v1.0.0
 
-## Getting Started
+Binge Quest is an interactive gaming platform designed for true cinephiles. The project's goal is to combine entertainment with challenges about films and TV series. There are currently 3 games and more to come in the future.
 
-First, run the development server:
+Check project: https://binge.santiventri.com
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How to play
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Each game presents a unique challenge related to movies and TV series. You can play daily challenges or explore different levels. The answers of each level are final and cannot be changed after submitting.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+<ul>
+  <li>Email and password based authentication</li>
+  <li>New levels every day of the year</li>
+  <li>Level archive for every game</li>
+  <li>Profile customization</li>
+  <li>Game statistics</li>
+  <li>Responsive design (Mobile friendly)</li>
+</ul>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Technologies
 
-## Deploy on Vercel
+This project is built with:
+- **[Next.js](https://nextjs.org)**
+- **[TypeScript](https://www.typescriptlang.org)**
+- **[Supabase](https://supabase.com)** (Backend and authentication)
+- **[CSS Modules](https://github.com/css-modules/css-modules)**
+- **[Lucide Icons](https://lucide.dev)** (Icon library)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Author
+
+Made by **[Santino Ventrice](https://github.com/SantiVentri)**
