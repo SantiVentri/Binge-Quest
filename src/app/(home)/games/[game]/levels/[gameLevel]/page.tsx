@@ -57,6 +57,10 @@ export default function GamePage({ params }: { params: Promise<{ game: string; g
     // Toast
     const Toast = useToast();
 
+    // Get today's date in YYYY-MM-DD format (local)
+    const today = new Date().toLocaleDateString("en-CA");
+
+
     useEffect(() => {
         params.then(({ game: gameParam, gameLevel: levelParam }) => {
             setGame(gameParam);
@@ -70,6 +74,10 @@ export default function GamePage({ params }: { params: Promise<{ game: string; g
     }
 
     if (gameLevel && (gameLevel.trim() === "")) {
+        return notFound();
+    }
+
+    if (gameLevel && gameLevel > today) {
         return notFound();
     }
 
