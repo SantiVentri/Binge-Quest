@@ -38,6 +38,7 @@ export async function fetchGameByDate({ game, game_date }: Pick<GameSessionProps
     .from(game)
     .select("*")
     .eq("release_at", game_date)
+    .eq("is_active", true)
     .maybeSingle();
 
   if (error) throw error;

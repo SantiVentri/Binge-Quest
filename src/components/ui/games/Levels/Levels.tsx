@@ -36,6 +36,7 @@ export default function GameLevels({ game }: { game: string }) {
         const { data, error } = await supabase
             .from(`${game}`)
             .select("release_at")
+            .eq("is_active", true)
             .lte("release_at", today)
             .order("release_at", { ascending: true });
 
