@@ -17,6 +17,13 @@
     z-index: 3000;
 }
 
+.gameContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -39,6 +46,14 @@
     h1 {
         font-size: 30px;
     }
+}
+
+.arrowLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 80px;
 }
 
 /* Mobile */

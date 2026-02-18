@@ -9,10 +9,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 // Icons
-import { Grid2x2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Grid2x2 } from "lucide-react";
 
 // Helpers
-import { fetchGameByDate } from "@/helpers/games";
+import { fetchGameByDate, getTomorrowDate, getYesterdayDate } from "@/helpers/games";
 import { submitGame } from "@/helpers/games";
 import { hasPlayedGame } from "@/helpers/games";
 
@@ -59,6 +59,8 @@ export default function GamePage({ params }: { params: Promise<{ game: string; g
 
     // Get today's date in YYYY-MM-DD format (local)
     const today = new Date().toLocaleDateString("en-CA");
+    const previousDay = gameLevel ? getYesterdayDate(gameLevel) : null;
+    const nextDay = gameLevel ? getTomorrowDate(gameLevel) : null;
 
 
     useEffect(() => {
@@ -179,12 +181,15 @@ export default function GamePage({ params }: { params: Promise<{ game: string; g
     if (error) return <p>There was an error loading today's game.</p>;
 
     return (
-        <main>
+        <main className={styles.page}>
             <Link href={`/games/${game}/levels`} className={styles.levelsIcon}>
                 <Grid2x2 size={25} color="white" />
             </Link>
             {gameData ? (
-                <>
+                <div className={styles.gameContainer}>
+                    <Link href={`/games/${game}/levels/${previousDay}`} className={styles.arrowLink}>
+                        <ChevronLeft size={45} color="white" />
+                    </Link>
                     {game === "trivia-game" && (
                         <TriviaGame
                             gameData={gameData as TriviaQuestion}
@@ -215,6 +220,9 @@ export default function GamePage({ params }: { params: Promise<{ game: string; g
                             onSubmit={handleSubmit}
                         />
                     )}
+                    <Link href={`/games/${game}/levels/${nextDay}`} className={styles.arrowLink}>
+                        <ChevronRight size={45} color="white" />
+                    </Link>
 
                     {/* Modals */}
                     {openHasPlayedModal && (
@@ -237,7 +245,7 @@ export default function GamePage({ params }: { params: Promise<{ game: string; g
                             correctAnswer={getCorrectAnswer()}
                         />
                     )}
-                </>
+                </div>
             ) : (
                 !isLoading && <EmptyListComponent />
             )}

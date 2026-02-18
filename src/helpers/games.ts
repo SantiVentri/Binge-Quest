@@ -66,3 +66,17 @@ export async function hasPlayedGame({ game, game_date }: Pick<GameSessionProps, 
   }
   return !!data;
 }
+
+// Calculate tomorrow's date
+export function getTomorrowDate(gameLevel: string) {
+  const tomorrow = new Date(gameLevel);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return tomorrow.toISOString().split('T')[0];
+}
+
+// Calculate yesterday's date
+export function getYesterdayDate(gameLevel: string) {
+  const yesterday = new Date(gameLevel);
+  yesterday.setDate(yesterday.getDate() - 1);
+  return yesterday.toISOString().split('T')[0];
+}
