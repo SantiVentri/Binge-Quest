@@ -29,7 +29,7 @@ import FindTheImpostorGame from "@/components/ui/games/FindTheImpostor/FindTheIm
 import GuessTheFilmGame from "@/components/ui/games/GuessTheFilm/GuessTheFilm";
 import SuccessModal from "@/components/ui/games/SuccessModal/SuccessModal";
 import FailureModal from "@/components/ui/games/FailureModal/FailureModal";
-import HasPlayedModal from "@/components/ui/games/HasPlayedModal/HasPlayedModal";
+import HasPlayedGameModal from "@/components/ui/games/HasPlayedModal/HasPlayedGameModal";
 import { useToast } from "@/context/ToastContext";
 
 export default function GamePage({ params }: { params: Promise<{ game: string; gameLevel: string }> }) {
@@ -226,7 +226,7 @@ export default function GamePage({ params }: { params: Promise<{ game: string; g
 
                     {/* Modals */}
                     {openHasPlayedModal && (
-                        <HasPlayedModal gameSlug={game} />
+                        <HasPlayedGameModal gameSlug={game} gameLevel={gameData.release_at} />
                     )}
                     {openFeedbackModal && isAnswerCorrect() && (
                         <SuccessModal

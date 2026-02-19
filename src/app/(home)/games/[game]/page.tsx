@@ -28,7 +28,7 @@ import FindTheImpostorGame from "@/components/ui/games/FindTheImpostor/FindTheIm
 import GuessTheFilmGame from "@/components/ui/games/GuessTheFilm/GuessTheFilm";
 import SuccessModal from "@/components/ui/games/SuccessModal/SuccessModal";
 import FailureModal from "@/components/ui/games/FailureModal/FailureModal";
-import HasPlayedModal from "@/components/ui/games/HasPlayedModal/HasPlayedModal";
+import HasPlayedModal from "@/components/ui/games/HasPlayedModal/HasPlayedTodayModal";
 import { useToast } from "@/context/ToastContext";
 
 export default function GamePage({ params }: { params: Promise<{ game: string }> }) {
