@@ -1,4 +1,4 @@
-# 🎬 Binge Quest v1.0.0
+# 🎬 Binge Quest v1.0.1
 
 Binge Quest is an interactive gaming platform designed for true cinephiles. The project's goal is to combine entertainment with challenges about films and TV series. There are currently 3 games and more to come in the future.
 
