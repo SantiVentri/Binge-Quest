@@ -37,9 +37,8 @@ export default function RegisterPage() {
   };
 
   const isPasswordValid = (password: string) => {
-    // At least 8 characters, one uppercase letter, one lowercase letter, one number and one special character
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[+=-@$!%*?&#])[A-Za-z\d+=-@$!%*?&#]{8,}$/;
+    // At least 8 characters, one letter and one number
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+.,]{8,}$/;
     return passwordRegex.test(password);
   };
 
@@ -61,7 +60,7 @@ export default function RegisterPage() {
 
     if (!isPasswordValid(password)) {
       setErrorMessage(
-        "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character."
+        "Password must be at least 8 characters long and include at least one letter and one number."
       );
       setIsLoading(false);
       return;
