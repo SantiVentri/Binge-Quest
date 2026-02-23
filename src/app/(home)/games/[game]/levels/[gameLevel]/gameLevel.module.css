@@ -61,4 +61,8 @@
     .container {
         padding: 15px;
     }
+
+    .arrowLink {
+        display: none;
+    }
 }
