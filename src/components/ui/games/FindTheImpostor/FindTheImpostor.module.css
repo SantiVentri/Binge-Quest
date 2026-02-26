@@ -16,6 +16,7 @@
     color: black;
     border-radius: 5px;
     padding: 10px 15px;
+    min-height: 100px;
     width: 100%;
     font-weight: bold;
     font-size: 16px;
